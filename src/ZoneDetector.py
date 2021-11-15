@@ -1,4 +1,6 @@
 class ZoneDetector(object):
-    """description of class"""
+    """Detects the zones in an image."""
 
-
+    # Detects and returns the list of zones in an image.
+    def Detect(image):
+        raise NotImplementedError

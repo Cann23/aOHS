@@ -1,5 +1,4 @@
 class aOHS(object):
-    """description of class"""
-
+    """Main program class."""
 
 
