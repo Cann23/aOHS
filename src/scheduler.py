@@ -3,9 +3,9 @@ class Scheduler(object):
 
     # Collection of violation detectors.
     detectors
-    # List of zones.
-    zones
+    # List of cameras.
+    cameras
 
-    # Detects the violations given image and zones, then returns detection results.
-    def DetectViolations(image, zones):
+    # Detects the violations for given cameras, then returns detection results.
+    def DetectViolations(camera):
         raise NotImplementedError

@@ -1,8 +1,8 @@
 class DetectionResult(object):
-    """Represents the result of a detection. It is a base class for more concrete result classes (e.g HumanDetectionResult)."""
+    """Represents the result of a detection. It is a base class for more concrete result classes (e.g HelmetDetectionResult)."""
 
-    # Associated zone.
-    zone
+    # Associated camera.
+    camera
     # Screen space info.
     rect
 
