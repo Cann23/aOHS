@@ -1,3 +1,14 @@
-from django.shortcuts import render
+from django.views import generic
 
-# Create your views here.
+from backend.models import Model, Camera
+
+
+class CameraIndexView(generic.ListView):
+    template_name = ''
+    context_object_name = 'camera_list'
+
+    def get_queryset(self):
+        return Camera.objects.all()
+
+
+
