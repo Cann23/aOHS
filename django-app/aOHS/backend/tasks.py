@@ -1,5 +1,4 @@
 import cv2
-from background_task import background
 
 from .models import Camera
 
@@ -21,10 +20,3 @@ def capture_camera(camera_id):
     video.release()
     cv2.destroyWindow("RTSP")
 
-
-@background(schedule=60)
-def testBackgroundTask():
-    print("test")
-
-
-testBackgroundTask.now()
