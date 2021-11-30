@@ -1,4 +1,6 @@
 import cv2
+from background_task import background
+
 from .models import Camera
 
 
@@ -12,8 +14,17 @@ def capture_camera(camera_id):
     # starts video capturing process using opencv
     while camera.active:
         _, frame = video.read()
-        cv2.imshow("RTSP", frame) # for now just show image in the screen since we do not decided how to save files yet.
+        cv2.imshow("RTSP",
+                   frame)  # for now just show image in the screen since we do not decided how to save files yet.
         # save the captures to the database
 
     video.release()
     cv2.destroyWindow("RTSP")
+
+
+@background(schedule=60)
+def testBackgroundTask():
+    print("test")
+
+
+testBackgroundTask.now()
