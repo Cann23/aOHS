@@ -2,3 +2,4 @@ django~=3.2.9
 channels~=3.0.4
 channels-redis
 asgiref~=3.4.1
+opencv-python~=4.5.4.60
