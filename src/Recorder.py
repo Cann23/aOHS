@@ -1,5 +1,7 @@
 import threading
 import time
+import numpy
+import cv2
 
 class Recorder(object):
     """Records the capture as a video format file."""
@@ -12,6 +14,7 @@ class Recorder(object):
         this.device = device
         this.max_duration = max_duration
         this.is_recording = False
+        this.frames = []
         this._record_job_ = None
 
     # Save the current data as a video file.
@@ -37,4 +40,18 @@ class Recorder(object):
     # Performs the recording
     def Record_Job(self):
         while is_recording:
-            raise NotImplementedError
+            # Begin capture.
+            cap = cv.VideoCapture(device)
+            if cap.isOpened():
+                ret, frame = cap.read()
+                # Cannot receive frame from camera?
+                if not ret:
+                    break
+                # Add frame to the list.
+                frames.append(frame)
+                # If the frame is filled, drop the first frame.
+                if frames.length() > fps * max_duration:
+                    frames.pop(0)
+        # Recording has stopped, release the capture.
+        if cap:
+            cap.release()
