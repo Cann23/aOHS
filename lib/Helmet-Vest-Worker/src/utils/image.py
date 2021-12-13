@@ -86,24 +86,30 @@ def draw_detection(
         elif  text[0] == 'W' and    (violation_type ==2  or violation_type ==3 or violation_type ==0 or violation_type ==1) :
             number_of_worker+=1
             inner()
-        
+
+    is_violation_occurred = False
 
     if(violation_type ==0):
         print("number of worker is  " + str(number_of_worker))
     elif(violation_type ==1):
         if(number_of_helmet - number_of_worker < 0):
+            is_violation_occurred = True
             print(" helmet violation occurred")
     elif(violation_type ==2):
         if(number_of_vest - number_of_worker < 0):
+            is_violation_occurred = True
             print(" vest violation occurred")
     elif(violation_type ==3):
         if(number_of_helmet - number_of_worker < 0) and (number_of_vest - number_of_worker < 0) :
+            is_violation_occurred = True
             print(" helmet and vest  violation occurred")
         elif(number_of_helmet - number_of_worker < 0):
+            is_violation_occurred = True
             print(" helmet violation occurred")
         elif(number_of_vest - number_of_worker < 0):
-            print(" vest violation occurred")        
+            is_violation_occurred = True
+            print(" vest violation occurred")
     else:
         print("violation type is not found ")
 
-    return img
+    return img, is_violation_occurred
