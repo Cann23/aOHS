@@ -8,7 +8,7 @@ main.prepare_model(approach=1)
 
 img = cv2.imread(f'frames/1.jpg')
 letter_boxed_img = main.letterbox_image(img, main.input_shape)
-detection = main.get_detection(letter_boxed_img, sys.argv[1])
+detection = main.get_detection(letter_boxed_img, int(sys.argv[1]))
 
 main.plt_imshow(detection[:, :, ::-1])
 
