@@ -1,5 +1,5 @@
 class ZoneRules(object):
-    """Represents the rules of a zone."""
+    """Represents the rules of a camera."""
 
     # Binary rules and their default values are laid below.
 

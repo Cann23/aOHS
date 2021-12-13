@@ -1,0 +1,5 @@
+/Helmet-Vest-Worker/model-data/weights
+/Helmet-Vest-Worker/extras/*
+/Helmet-Vest-Worker/src/__pycache__/*
+/Helmet-Vest-Worker/src/utils/__pycache__/*
+/Helmet-Vest-Worker/src/yolo3/__pycache__/*
