@@ -13,8 +13,8 @@ sql_get_config = "select c.id, m.id, m.path " \
                  "where c.active = 1 "
 
 
-def executeModel(model_path, camera_path):
-    command_str = f"python ./dummy.py {model_path} {camera_path} " + time().strftime("%m/%d%Y %H:%M:%S")
+def executeModel(camera_id, model_id, model_path):
+    command_str = f"python ./dummy.py {camera_id} {model_id} {model_path} " + time().strftime("%m/%d%Y %H:%M:%S")
     output = subprocess.check_output([command_str], shell=True)
     print(output.decode("utf-8"))
 
@@ -27,7 +27,7 @@ def TaskJob():
         thread_list = []
 
         for conf in result_set:
-            curr_thread = threading.Thread(target=executeModel, args=(conf[0], conf[1], conf[2]))
+            curr_thread = threading.Thread(target=executeModel, args=(conf[0], conf[1], conf[2],))
             thread_list.append(curr_thread)
 
             curr_thread.start()
