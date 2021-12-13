@@ -14,7 +14,7 @@ sql_get_config = "select c.id, m.id, m.path " \
 
 
 def executeModel(camera_id, model_id, model_path):
-    command_str = f"python ./dummy.py {camera_id} {model_id} {model_path} " + time().strftime("%m/%d%Y %H:%M:%S")
+    command_str = f"python ./model_caller.py {camera_id} {model_id} {model_path} " + time().strftime("%m/%d%Y %H:%M:%S")
     output = subprocess.check_output([command_str], shell=True)
     print(output.decode("utf-8"))
 
