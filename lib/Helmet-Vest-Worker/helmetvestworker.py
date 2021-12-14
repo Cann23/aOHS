@@ -108,21 +108,3 @@ def plt_imshow(img):
     plt.axis('off')
     plt.show()
 
-prepare_model(approach=1)
-f = open("input.txt", "r")
-violation_type = int(f.read(1))
-for i in range(12):
-    # read the image
-    img = cv2.imread( f'extras/sample-images/{i}.jpg' )
-
-    # resize
-    img = letterbox_image(img, input_shape)
-
-    # get the detection on the image
-    #0 = only worker
-    #1 = for helmet
-    #2 = for vest
-    #3 = both helmet and vest
-    img1 = get_detection(img,violation_type)
-    # show the image
-    plt_imshow(img1[:, :, ::-1])

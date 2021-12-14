@@ -2,3 +2,10 @@
 **/.vs/
 *.pyproj
 *.sln
+
+# Django
+django-app/venv
+django-app/aOHS/.idea/
+django-app/aOHS/aOHS/__pycache__/
+django-app/aOHS/db.sqlite3
+django-app/aOHS/backend/__pycache__/
