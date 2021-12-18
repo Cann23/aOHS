@@ -1,5 +1,5 @@
 import threading
-import cv2
+import cv2 as cv
 
 import Camera
 
@@ -17,7 +17,7 @@ class OpenCVCamera(Camera.Camera):
             # Make sure the capture handle is active and working.
             if self.__videoCapture__ is None or not self.__videoCapture__.isOpened():
                 # Invalid handle, try again.
-                self.__videoCapture__ = cv.VideoCapture(device)
+                self.__videoCapture__ = cv.VideoCapture(self.id)
             else:
                 ret, frame = self.__videoCapture__.read()
                 self.lastFrame = frame
@@ -25,7 +25,7 @@ class OpenCVCamera(Camera.Camera):
     # Starts capturing.
     def Activate(self):
         self.isCapturing = True
-        self.__capture_job__ = threading.Thread(target=__capture__, args=(self,))
+        self.__capture_job__ = threading.Thread(target=self.__capture__)
         self.__capture_job__.start()
 
     # Releases the camera capture.
