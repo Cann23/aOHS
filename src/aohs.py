@@ -9,15 +9,20 @@ p = os.path.join(p, "../lib/Helmet-Vest-Worker")
 p = os.path.abspath(p)
 sys.path.append(p)
 
-import helmetvestworker
+#import helmetvestworker
 
 class aOHS(object):
     """Main program class."""
 
 
-cam = OpenCVCamera(-1,None)
+cam = OpenCVCamera(0, None)
 
-print(type(cam.lastFrame))
-cv.imshow("frame", cam.lastFrame)
-cv.waitKey(0)
+print(cam.lastFrame)
+while True:
+    if cam.lastFrame is not None:
+        cv.imshow("img", cam.lastFrame)
+        cv.waitKey(0)
+        cam.isCapturing = False
+        break
+
 
