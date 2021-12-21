@@ -1,7 +1,7 @@
 import threading
 import cv2 as cv
 
-import Camera
+import base.Camera as Camera
 
 class OpenCVCamera(Camera.Camera):
     """OpenCV Implementation of Camera."""

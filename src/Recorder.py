@@ -1,6 +1,6 @@
 import threading
 
-import Camera
+import base.Camera as Camera
 
 class Recorder(object):
     """Records the capture as a video format file."""
