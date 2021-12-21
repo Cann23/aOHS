@@ -35,7 +35,7 @@ class ViolationView(View):
                               modelId=request.POST['modelId'], comment=request.POST['comment'],
                               created=request.POST['created'], modified=request.POST['modified'])
         violation.save()
-        return redirect('dashboard/violation/')
+        return redirect('dashboard/violations/')
 
     def put(self, request):
         cameraId = request.PUT['cameraId']
@@ -46,11 +46,11 @@ class ViolationView(View):
         modified = request.PUT['modified']
         Violation.objects.get(id=request.PUT['id']).update(cameraId=cameraId, workerId=workerId, modelId=modelId,
                                                            comment=comment, created=created, modified=modified)
-        return redirect('dashboard/violation/')
+        return redirect('dashboard/violations/')
 
     def delete(self, request):
         Violation.objects.get(id=request.DELETE['id']).delete()
-        return redirect('dashboard/violation/')
+        return redirect('dashboard/violations/')
 
 
 class WorkerView(View):
