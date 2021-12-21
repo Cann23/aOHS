@@ -27,7 +27,7 @@ class Recorder(object):
         if is_recording:
             return
         is_recording = True
-        _record_job_ = threading.Thread(target=Record_Job, args=(self,))
+        _record_job_ = threading.Thread(target=self.Record_Job)
         _record_job_.start()
 
     # Stops recording.

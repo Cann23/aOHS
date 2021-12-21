@@ -1,7 +1,6 @@
 import sys
 import os
-from 
-from Camera import *
+from OpenCVCamera import *
 from Scheduler import *
 
 # Add lib folder to sys path.
@@ -15,3 +14,8 @@ class aOHS(object):
 
     def __init__(self):
         self.scheduler = Scheduler()
+        self.cameras = None
+
+    # Creates and / or deletes cameras.
+    def UpdateCameras(self):
+        raise NotImplementedError
