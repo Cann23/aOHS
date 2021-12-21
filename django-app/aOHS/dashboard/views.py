@@ -14,21 +14,21 @@ class Obj:
 
 class Example(View):
     def get(self, request):
-        return render(request, 'dashboard/dashboard.html')
+        return render(request, 'dashboard/Dashboard.html')
 
 
 class Example2(View):
     def get(self, request):
         headers = ['a', 'b', 'c']
         data = [Obj(), Obj(), Obj()]
-        return render(request, 'dashboard/list.html', {'headers': headers, 'data': data})
+        return render(request, 'dashboard/List.html', {'headers': headers, 'data': data})
 
 
 class ViolationView(View):
     def get(self, request):
         headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
         data = Violation.objects.all()
-        return render(request, 'dashboard/listViolation.html', {'headers': headers, 'data': data})
+        return render(request, 'dashboard/ListViolation.html', {'headers': headers, 'data': data})
 
     def post(self, request):
         violation = Violation(cameraId=request.POST['cameraId'], workerId=request.POST['workerId'],
