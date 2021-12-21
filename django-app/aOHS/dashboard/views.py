@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.views import View
 
-from backend.models import Worker
+from backend.models import Worker, Violation
 
 
 class Obj:
@@ -22,6 +22,13 @@ class Example2(View):
         headers = ['a', 'b', 'c']
         data = [Obj(), Obj(), Obj()]
         return render(request, 'dashboard/list.html', {'headers': headers, 'data': data})
+
+
+class ViolationView(View):
+    def get(self, request):
+        headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
+        data = Violation.objects.all()
+        return render(request, 'dashboard/listViolation.html', {'headers': headers, 'data': data})
 
 
 class WorkerView(View):
