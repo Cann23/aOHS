@@ -29,6 +29,9 @@ class Deneme(View):
         return render(request, 'dashboard/worker-form.html')
 
     def post(self, request):
+        worker = Worker(name=request.POST['worker_name'], title=request.POST['worker_title'], phone=request.POST['worker_tel'])
+        worker.save()
+        return redirect('/dashboard/workers/')
 
 
 class ViolationView(View):

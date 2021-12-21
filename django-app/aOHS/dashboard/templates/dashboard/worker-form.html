@@ -1,18 +1,19 @@
 {% extends 'dashboard/dashboard.html' %}
 
 {% block table %}
-    <form>
+    <form action="" method="post">
+        {% csrf_token %}
       <div class="mb-3">
         <label for="worker_name" class="form-label">İsim</label>
-        <input type="text" class="form-control" id="worker_name">
+        <input type="text" class="form-control" id="worker_name" name="worker_name">
       </div>
       <div class="mb-3">
         <label for="worker_title" class="form-label">Ünvan</label>
-        <input type="text" class="form-control" id="worker_title">
+        <input type="text" class="form-control" id="worker_title" name="worker_title">
       </div>
       <div class="mb-3">
         <label for="worker_tel" class="form-label">Telefon Numarası</label>
-        <input type="text" class="form-control" id="worker_tel">
+        <input type="text" class="form-control" id="worker_tel" name="worker_tel">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>
