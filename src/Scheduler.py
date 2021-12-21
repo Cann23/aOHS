@@ -73,4 +73,9 @@ class Scheduler(object):
             print("Camera is not in the list.")
 
     def __schedule__(self):
-        raise NotImplementedError
+        while True:
+            if self.__terminate_job__:
+                return
+            while not self.isScheduling:
+                time.sleep(0.25)
+            raise NotImplementedError
