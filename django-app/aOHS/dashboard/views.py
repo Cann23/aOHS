@@ -30,6 +30,25 @@ class ViolationView(View):
         data = Violation.objects.all()
         return render(request, 'dashboard/listViolation.html', {'headers': headers, 'data': data})
 
+    def post(self, request):
+        violation = Violation(cameraId = request.POST['cameraId'], workerId = request.POST['workerId'], modelId = request.POST['modelId'], comment = request.POST['comment'], created = request.POST['created'], modified = request.POST['modified'])
+        violation.save()
+        return redirect('dashboard/violation/')
+
+    def put(self, request):
+        cameraId = request.PUT['cameraId']
+        workerId = request.PUT['workerId']
+        modelId = request.PUT['modelId']
+        comment = request.PUT['comment']
+        created = request.PUT['created']
+        modified = request.PUT['modified']
+        Violation.objects.get(id=request.PUT['id']).update(cameraId=cameraId, workerId=workerId, modelId=modelId, comment=comment, created=created, modified=modified)
+        return redirect('dashboard/violation/')
+
+    def delete(self, request):
+        Violation.objects.get(id=request.DELETE['id']).delete()
+        return redirect('dashboard/violation/')
+
 
 class WorkerView(View):
     def get(self, request):
