@@ -22,3 +22,9 @@ class Example2(View):
         data = [Obj(), Obj(), Obj()]
         return render(request, 'dashboard/list.html', {'headers': headers, 'data': data})
 
+class ViolationView(View):
+    def get(self, request):
+        headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
+        data = Violation.objects.all()
+        return render(request, 'dashboard/listViolation.html', {'headers': headers, 'data': data})
+
