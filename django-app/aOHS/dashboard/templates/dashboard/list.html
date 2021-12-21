@@ -1,0 +1,33 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    {% for header in headers %}
+        {{ header }}
+    {% endfor %}
+
+    {% for datum in data %}
+        {{ datum.x }} {{ datum.y }} {{ datum.z }}
+    {% endfor %}
+
+
+    <table class="table bg-white rounded shadow-sm  table-hover">
+        <thead>
+            <tr>
+                <th scope="col" width="50">#</th>
+                {% for header in headers %}
+                    <th scope="col">{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for datum in data %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ datum.x }}</td>
+                <td>{{ datum.y }}</td>
+                <td>{{ datum.z }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
