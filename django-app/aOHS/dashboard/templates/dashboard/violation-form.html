@@ -1,0 +1,19 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <form>
+      <div class="mb-3">
+        <label for="camera_id" class="form-label">İsim</label>
+        <input type="number" class="form-control" id="camera_id">
+      </div>
+      <div class="mb-3">
+        <label for="worker_id" class="form-label">Ünvan</label>
+        <input type="number" class="form-control" id="worker_id">
+      </div>
+      <div class="mb-3">
+        <label for="model_id" class="form-label">Telefon Numarası</label>
+        <input type="number" class="form-control" id="model_id">
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

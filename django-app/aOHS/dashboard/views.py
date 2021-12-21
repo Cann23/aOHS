@@ -22,3 +22,10 @@ class Example2(View):
         data = [Obj(), Obj(), Obj()]
         return render(request, 'dashboard/list.html', {'headers': headers, 'data': data})
 
+
+class Deneme(View):
+    def get(self, request):
+        return render(request, 'dashboard/worker-form.html')
+
+    def post(self, request):
+        
