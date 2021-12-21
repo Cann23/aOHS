@@ -1,0 +1,25 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+
+    <table class="table bg-white rounded shadow-sm  table-hover">
+        <thead>
+            <tr>
+                <th scope="col" width="50">#</th>
+                {% for header in headers %}
+                    <th scope="col">{{ header }}</th>
+                {% endfor %}
+            </tr>
+        </thead>
+        <tbody>
+        {% for datum in data %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ datum.id }}</td>
+                <td>{{ datum.name }}</td>
+                <td>{{ datum.path }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
