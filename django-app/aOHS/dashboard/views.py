@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.views import View
 
-from backend.models import Worker, Violation, Model
+from backend.models import Worker, Violation, Model, Configuration
 
 
 class Obj:
@@ -106,3 +106,27 @@ class ModelView(View):
     def delete(self, request):
         Model.objects.get(id=request.DELETE['id']).delete()
         return redirect('dashboard/models')
+
+
+class ConfigurationView(View):
+    def get(self, request):
+        headers = ["id", "cameraId", "modelId", "created", "modified"]
+        configuration = Configuration.objects.all()
+        return render(request, 'dashboard/ListConfiguration.html', {'headers': headers, 'data': configuration})
+
+    def post(self, request):
+        configuration = Configuration(cameraId=request.POST['cameraId'], modelId=request.POST['modelId'], created=request.POST['created'], modified=request.POST['modified'])
+        configuration.save()
+        return redirect('dasboard/configurations/')
+
+    def put(self, request):
+        cameraId = request.PUT['cameraId']
+        modelId = request.PUT['modelId']
+        created = request.PUT['created']
+        modified = request.PUT['modified']
+        Configuration.objects.get(id = request.PUT['id']).update(cameraId=cameraId, modelId=modelId, created=created, modified=modified)
+        return  redirect('dasboard/configurations/')
+
+    def delete(self, request):
+        Configuration.objects.get(id = request.DELETE['id']).delete()
+        return  redirect('dasboard/configurations/')
