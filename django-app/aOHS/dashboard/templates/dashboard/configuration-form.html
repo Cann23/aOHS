@@ -1,0 +1,26 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <form action="" method="post">
+        {% csrf_token %}
+      <div class="mb-3">
+        <label for="worker_name" class="form-label">İsim</label>
+          <select name="" id="" class="form-select">
+              <option selected>Select a camera</option>
+              {% for camera in cameras %}
+                  <option value="{{ camera.id }}">{{ camera.name }}</option>
+              {% endfor %}
+          </select>
+      </div>
+      <div class="mb-3">
+        <label for="worker_title" class="form-label">Ünvan</label>
+          <select name="" id="" class="form-select">
+              <option selected>Select a model</option>
+              {% for model in models %}
+                  <option value="{{ model.id }}">{{ model.name }}</option>
+              {% endfor %}
+          </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

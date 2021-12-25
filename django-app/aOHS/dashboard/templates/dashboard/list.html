@@ -1,6 +1,7 @@
-{% extends 'dashboard/Dashboard.html' %}
+{% extends 'dashboard/dashboard.html' %}
 
 {% block table %}
+    <h3 class="fs-4 mb-3">Recent Orders</h3>
 
     <table class="table bg-white rounded shadow-sm  table-hover">
         <thead>
@@ -15,11 +16,9 @@
         {% for datum in data %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ datum.id }}</td>
-                <td>{{ datum.cameraId }}</td>
-                <td>{{ datum.modelId }}</td>
-                <td>{{ datum.created }}</td>
-                <td>{{ datum.modified }}</td>
+                <td>{{ datum.x }}</td>
+                <td>{{ datum.y }}</td>
+                <td>{{ datum.z }}</td>
             </tr>
         {% endfor %}
         </tbody>

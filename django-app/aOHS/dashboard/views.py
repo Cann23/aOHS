@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.views import View
 
-from backend.models import Worker, Violation, Model, Configuration
+from backend.models import Worker, Violation, Model, Configuration, Camera
 
 
 class Obj:
@@ -14,17 +14,17 @@ class Obj:
 
 class Example(View):
     def get(self, request):
-        return render(request, 'dashboard/Dashboard.html')
+        return render(request, 'dashboard/dashboard.html')
 
 
 class Example2(View):
     def get(self, request):
         headers = ['a', 'b', 'c']
         data = [Obj(), Obj(), Obj()]
-        return render(request, 'dashboard/List.html', {'headers': headers, 'data': data})
+        return render(request, 'dashboard/list.html', {'headers': headers, 'data': data})
 
 
-class Deneme(View):
+class WorkerCreateView(View):
     def get(self, request):
         return render(request, 'dashboard/worker-form.html')
 
@@ -34,11 +34,33 @@ class Deneme(View):
         return redirect('/dashboard/workers/')
 
 
+class CameraCreateView(View):
+    def get(self, request):
+        return render(request, 'dashboard/camera-form.html')
+
+    def post(self, request):
+        cameras = Camera(name=request.POST['camera_name'], url=request.POST['camera_url'])
+        cameras.save()
+        return redirect('/dashboard/cameras/')
+
+
+class ConfigurationCreateView(View):
+    def get(self, request):
+        cameras = Camera.objects.all()
+        models = Model.objects.all()
+        return render(request, 'dashboard/configuration-form.html', {'cameras': cameras, 'models': models})
+
+    def post(self, request):
+        cameras = Camera.objects.all()
+        models = Model.objects.all()
+        return render(request, 'dashboard/configuration-form.html')
+
+
 class ViolationView(View):
     def get(self, request):
         headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
         data = Violation.objects.all()
-        return render(request, 'dashboard/ListViolation.html', {'headers': headers, 'data': data})
+        return render(request, 'dashboard/listViolation.html', {'headers': headers, 'data': data})
 
     def post(self, request):
         violation = Violation(cameraId=request.POST['cameraId'], workerId=request.POST['workerId'],
@@ -67,7 +89,7 @@ class WorkerView(View):
     def get(self, request):
         headers = ['id', 'name', 'title', 'phone']
         workers = Worker.objects.all()
-        return render(request, 'dashboard/ListWorker.html', {'headers': headers, 'data': workers})
+        return render(request, 'dashboard/listWorker.html', {'headers': headers, 'data': workers})
 
     def post(self, request):
         worker = Worker(name=request.POST['name'], title=request.POST['title'], phone=request.POST['phone'])
@@ -90,7 +112,7 @@ class ModelView(View):
     def get(self, request):
         headers = ['id', 'name', 'path']
         models = Model.objects.all()
-        return render(request, 'dashboard/ListModel.html', {'headers': headers, 'data': models})
+        return render(request, 'dashboard/listModel.html', {'headers': headers, 'data': models})
 
     def post(self, request):
         worker = Model(name=request.POST['name'], path=request.POST['path'])
@@ -112,7 +134,7 @@ class ConfigurationView(View):
     def get(self, request):
         headers = ["id", "cameraId", "modelId", "created", "modified"]
         configuration = Configuration.objects.all()
-        return render(request, 'dashboard/ListConfiguration.html', {'headers': headers, 'data': configuration})
+        return render(request, 'dashboard/listConfiguration.html', {'headers': headers, 'data': configuration})
 
     def post(self, request):
         configuration = Configuration(cameraId=request.POST['cameraId'], modelId=request.POST['modelId'], created=request.POST['created'], modified=request.POST['modified'])
@@ -130,3 +152,11 @@ class ConfigurationView(View):
     def delete(self, request):
         Configuration.objects.get(id = request.DELETE['id']).delete()
         return  redirect('dasboard/configurations/')
+
+
+class CameraView(View):
+    def get(self, request):
+        headers = ['name', 'url']
+        cameras = Camera.objects.all()
+        return render(request, 'dashboard/listCamera.html', {'headers': headers, 'data': cameras})
+
