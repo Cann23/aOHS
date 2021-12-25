@@ -11,13 +11,6 @@ class WorkerView(View):
         workers = Worker.objects.all()
         return render(request, 'dashboard/listWorker.html', {'headers': headers, 'data': workers})
 
-    def put(self, request):
-        name = request.PUT['name']
-        title = request.PUT['title']
-        phone = request.PUT['phone']
-        Worker.objects.get(id=request.PUT['id']).update(name=name, title=title, phone=phone)
-        return redirect('dashboard/workers')
-
     def delete(self, request):
         Worker.objects.get(id=request.DELETE['id']).delete()
         return redirect('dashboard/workers')
