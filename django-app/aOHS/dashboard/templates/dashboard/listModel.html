@@ -20,7 +20,7 @@
                 <td>{{ datum.id }}</td>
                 <td>{{ datum.name }}</td>
                 <td>{{ datum.path }}</td>
-                <td><button type="button" class="btn"><i class="fa fa-edit"></i></button></td>
+                <th><a class="btn" href="/dashboard/models/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
             </tr>
         {% endfor %}
         </tbody>

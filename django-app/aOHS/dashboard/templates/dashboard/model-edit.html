@@ -1,0 +1,16 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="name" class="form-label">Name</label>
+            <input type="text" class="form-control" id="name" name="name" value="{{ model.name }}">
+        </div>
+        <div class="mb-3">
+            <label for="title" class="form-label">Path</label>
+            <input type="text" class="form-control" id="path" name="path" value="{{ model.path }}">
+        </div>
+        <button type=" submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}
