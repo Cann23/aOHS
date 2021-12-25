@@ -29,7 +29,8 @@ class WorkerCreateView(View):
         return render(request, 'dashboard/worker-form.html')
 
     def post(self, request):
-        worker = Worker(name=request.POST['worker_name'], title=request.POST['worker_title'], phone=request.POST['worker_tel'])
+        worker = Worker(name=request.POST['worker_name'], title=request.POST['worker_title'],
+                        phone=request.POST['worker_tel'])
         worker.save()
         return redirect('/dashboard/workers/')
 
@@ -137,7 +138,8 @@ class ConfigurationView(View):
         return render(request, 'dashboard/listConfiguration.html', {'headers': headers, 'data': configuration})
 
     def post(self, request):
-        configuration = Configuration(cameraId=request.POST['cameraId'], modelId=request.POST['modelId'], created=request.POST['created'], modified=request.POST['modified'])
+        configuration = Configuration(cameraId=request.POST['cameraId'], modelId=request.POST['modelId'],
+                                      created=request.POST['created'], modified=request.POST['modified'])
         configuration.save()
         return redirect('dasboard/configurations/')
 
@@ -146,12 +148,13 @@ class ConfigurationView(View):
         modelId = request.PUT['modelId']
         created = request.PUT['created']
         modified = request.PUT['modified']
-        Configuration.objects.get(id = request.PUT['id']).update(cameraId=cameraId, modelId=modelId, created=created, modified=modified)
-        return  redirect('dasboard/configurations/')
+        Configuration.objects.get(id=request.PUT['id']).update(cameraId=cameraId, modelId=modelId, created=created,
+                                                               modified=modified)
+        return redirect('dasboard/configurations/')
 
     def delete(self, request):
-        Configuration.objects.get(id = request.DELETE['id']).delete()
-        return  redirect('dasboard/configurations/')
+        Configuration.objects.get(id=request.DELETE['id']).delete()
+        return redirect('dasboard/configurations/')
 
 
 class CameraView(View):
@@ -159,4 +162,3 @@ class CameraView(View):
         headers = ['name', 'url']
         cameras = Camera.objects.all()
         return render(request, 'dashboard/listCamera.html', {'headers': headers, 'data': cameras})
-
