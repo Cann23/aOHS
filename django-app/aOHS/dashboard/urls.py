@@ -1,14 +1,15 @@
-from django.contrib import admin
 from django.urls import path
 
-from dashboard.views import Example, Example2, WorkerView, ViolationView, ModelView, WorkerCreateView, \
-    ConfigurationView, CameraView, CameraCreateView, ConfigurationCreateView
+from dashboard.views.camera_views import CameraView, CameraCreateView
+from dashboard.views.configuration_views import ConfigurationView, ConfigurationCreateView
+from dashboard.views.model_views import ModelView
+from dashboard.views.violation_views import ViolationView
+from dashboard.views.worker_views import WorkerView, WorkerCreateView, WorkerEditView
 
 urlpatterns = [
-    path('dashboard/', Example.as_view()),
-    path('dashboard2/', Example2.as_view()),
     path('dashboard/workers/', WorkerView.as_view()),
     path('dashboard/workers/add/', WorkerCreateView.as_view()),
+    path('dashboard/workers/edit/<int:worker_id>/', WorkerEditView.as_view()),
     path('dashboard/violations/', ViolationView.as_view()),
     path('dashboard/models/', ModelView.as_view()),
     path('dashboard/configurations/', ConfigurationView.as_view()),
