@@ -25,3 +25,33 @@ class ViolationView(View):
     def delete(self, request):
         Violation.objects.get(id=request.DELETE['id']).delete()
         return redirect('dashboard/violations/')
+
+class ViolationCreateView(View):
+    def get(self, request):
+        cameras = Camera.objects.all()
+        workers = Worker.objects.all()
+        models = Model.objects.all()
+        return render(request, 'dashboard/violation-form.html', {'cameras': cameras, 'workers': workers, 'models': models})
+
+    def post(self, request):
+        cameras = Camera.objects.all()
+        workers = Worker.objects.all()
+        models = Model.objects.all()
+        camera = cameras.get(id=request.POST['camera'])
+        worker = workers.get(id=request.POST['worker'])
+        model = models.get(id=request.POST['model'])
+        violation = Violation(cameraId=camera, workerId=worker, modelId=model)
+        violation.save()
+        return redirect('/dashboard/violations/')
+
+class ViolationEditView(View):
+    def get(self, request, violation_id):
+        violation = Violation.objects.get(id=violation_id)
+        return render(request, 'dashboard/violation-edit.html', {'violation': violation})
+
+    def post(self, request, violation_id):
+        cameraId = request.POST['cameraId']
+        workerId = request.POST['workerId']
+        modelId = request.POST['modelId']
+        Violation.objects.filter(id=violation_id).update(cameraId=cameraId, workerId=worker, modelId=modelId)
+        return redirect('/dashboard/violations/')

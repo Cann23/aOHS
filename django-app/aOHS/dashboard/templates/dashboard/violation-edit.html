@@ -1,0 +1,20 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="cameraId" class="form-label">Camera ID</label>
+            <input type="number" class="form-control" id="cameraId" name="cameraId" value="{{ violation.cameraId}}">
+        </div>
+        <div class="mb-3">
+            <label for="workerId" class="form-label">Camera ID</label>
+            <input type="number" class="form-control" id="workerId" name="workerId" value="{{ violation.workerId}}">
+        </div>
+        <div class="mb-3">
+            <label for="modelId" class="form-label">Model ID</label>
+            <input type="number" class="form-control" id="modelId" name="modelId" value="{{ violation.modelId }}">
+        </div>
+        <button type=" submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

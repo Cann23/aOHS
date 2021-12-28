@@ -1,18 +1,34 @@
 {% extends 'dashboard/dashboard.html' %}
 
 {% block table %}
-    <form>
+    <form action="" method="post">
+        {% csrf_token %}
       <div class="mb-3">
-        <label for="camera_id" class="form-label">İsim</label>
-        <input type="number" class="form-control" id="camera_id">
+        <label for="camera" class="form-label">Camera</label>
+          <select name="camera" id="camera" class="form-select">
+              <option selected>Select a camera</option>
+              {% for camera in cameras %}
+                  <option value="{{ camera.id }}">{{ camera.name }}</option>
+              {% endfor %}
+          </select>
       </div>
       <div class="mb-3">
-        <label for="worker_id" class="form-label">Ünvan</label>
-        <input type="number" class="form-control" id="worker_id">
+        <label for="worker" class="form-label">Camera</label>
+          <select name="worker" id="worker" class="form-select">
+              <option selected>Select a camera</option>
+              {% for worker in workers %}
+                  <option value="{{ worker.id }}">{{ worker.name }}</option>
+              {% endfor %}
+          </select>
       </div>
       <div class="mb-3">
-        <label for="model_id" class="form-label">Telefon Numarası</label>
-        <input type="number" class="form-control" id="model_id">
+        <label for="model" class="form-label">Model</label>
+          <select name="model" id="model" class="form-select">
+              <option selected>Select a model</option>
+              {% for model in models %}
+                  <option value="{{ model.id }}">{{ model.name }}</option>
+              {% endfor %}
+          </select>
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

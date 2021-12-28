@@ -10,7 +10,7 @@
                 {% for header in headers %}
                     <th scope="col">{{ header }}</th>
                 {% endfor %}
-                <th><a class="btn" href="/dashboard/"><i class="fa fa-plus"></i></a></th>
+                <th><a class="btn" href="/dashboard/violations/add/"><i class="fa fa-plus"></i></a></th>
             </tr>
         </thead>
         <tbody>
@@ -24,7 +24,7 @@
                 <td>{{ datum.comment }}</td>
                 <td>{{ datum.created }}</td>
                 <td>{{ datum.modified }}</td>
-                <td><button type="button" class="btn"><i class="fa fa-edit"></i></button></td>
+                <th><a class="btn" href="/dashboard/violations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
             </tr>
         {% endfor %}
         </tbody>
