@@ -37,10 +37,11 @@ class ViolationCreateView(View):
         cameras = Camera.objects.all()
         workers = Worker.objects.all()
         models = Model.objects.all()
+        comment = request.POST['comment']
         camera = cameras.get(id=request.POST['camera'])
         worker = workers.get(id=request.POST['worker'])
         model = models.get(id=request.POST['model'])
-        violation = Violation(cameraId=camera, workerId=worker, modelId=model)
+        violation = Violation(cameraId=camera, workerId=worker, modelId=model, comment=comment)
         violation.save()
         return redirect('/dashboard/violations/')
 
