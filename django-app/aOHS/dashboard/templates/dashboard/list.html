@@ -1,14 +1,7 @@
-{% extends 'dashboard/Dashboard.html' %}
+{% extends 'dashboard/dashboard.html' %}
 
 {% block table %}
-    {% for header in headers %}
-        {{ header }}
-    {% endfor %}
-
-    {% for datum in data %}
-        {{ datum.x }} {{ datum.y }} {{ datum.z }}
-    {% endfor %}
-
+    <h3 class="fs-4 mb-3">Recent Orders</h3>
 
     <table class="table bg-white rounded shadow-sm  table-hover">
         <thead>

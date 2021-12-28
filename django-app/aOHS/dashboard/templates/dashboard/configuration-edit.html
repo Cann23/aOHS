@@ -1,0 +1,16 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="cameraId" class="form-label">Camera ID</label>
+            <input type="number" class="form-control" id="cameraId" name="cameraId" value="{{ configuration.cameraId}}">
+        </div>
+        <div class="mb-3">
+            <label for="modelId" class="form-label">Model ID</label>
+            <input type="number" class="form-control" id="modelId" name="modelId" value="{{ configuration.modelId }}">
+        </div>
+        <button type=" submit" class="btn btn-primary">Submit</button>
+    </form>
+{% endblock %}

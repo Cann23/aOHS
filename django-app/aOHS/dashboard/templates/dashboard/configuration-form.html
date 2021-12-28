@@ -13,15 +13,6 @@
           </select>
       </div>
       <div class="mb-3">
-        <label for="worker" class="form-label">Worker</label>
-          <select name="worker" id="worker" class="form-select">
-              <option selected>Select a worker</option>
-              {% for worker in workers %}
-                  <option value="{{ worker.id }}">{{ worker.name }}</option>
-              {% endfor %}
-          </select>
-      </div>
-      <div class="mb-3">
         <label for="model" class="form-label">Model</label>
           <select name="model" id="model" class="form-select">
               <option selected>Select a model</option>
@@ -29,10 +20,6 @@
                   <option value="{{ model.id }}">{{ model.name }}</option>
               {% endfor %}
           </select>
-      </div>
-     <div class="mb-3">
-        <label for="comment" class="form-label">Comment</label>
-        <input type="text" class="form-control" id="comment" name="comment">
       </div>
       <button type="submit" class="btn btn-primary">Submit</button>
     </form>

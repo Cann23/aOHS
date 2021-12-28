@@ -6,6 +6,7 @@ from django.contrib.auth.models import User
 from django.dispatch import receiver
 from django.db.models.signals import post_save
 
+
 class Camera(models.Model):
     id = models.AutoField(primary_key=True)
     url = models.URLField(max_length=100)

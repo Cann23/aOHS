@@ -1,6 +1,7 @@
-{% extends 'dashboard/Dashboard.html' %}
+{% extends 'dashboard/dashboard.html' %}
 
 {% block table %}
+    <h3 class="fs-4 mb-3">Models</h3>
 
     <table class="table bg-white rounded shadow-sm  table-hover">
         <thead>
@@ -9,6 +10,7 @@
                 {% for header in headers %}
                     <th scope="col">{{ header }}</th>
                 {% endfor %}
+                <th><a class="btn" href="/dashboard/"><i class="fa fa-plus"></i></a></th>
             </tr>
         </thead>
         <tbody>
@@ -18,6 +20,7 @@
                 <td>{{ datum.id }}</td>
                 <td>{{ datum.name }}</td>
                 <td>{{ datum.path }}</td>
+                <th><a class="btn" href="/dashboard/models/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
             </tr>
         {% endfor %}
         </tbody>
