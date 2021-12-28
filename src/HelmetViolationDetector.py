@@ -9,7 +9,7 @@ class HelmetViolationDetector(b.HelmetVestWorkerViolationDetector):
         super.__init__(self)
         self.__violation_type__ = 1
 
-    def Detect(camera: cam.Camera):
+    def Detect(self, camera: cam.Camera):
         adapter = OpenCVImageAdapter()
         img = adapter.GetImage(camera)
         detection, has_violation_occured = self.GetDetection(img, self.__violation_type__)
