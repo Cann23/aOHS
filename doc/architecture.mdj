@@ -6864,9 +6864,9 @@
 											"font": "Arial;13;1",
 											"left": 301,
 											"top": 519,
-											"width": 96.79541015625,
+											"width": 97.29052734375,
 											"height": 13,
-											"text": "MaskDetector"
+											"text": "WorkerDetector"
 										},
 										{
 											"_type": "LabelView",
@@ -6899,7 +6899,7 @@
 									"font": "Arial;13;0",
 									"left": 296,
 									"top": 512,
-									"width": 106.79541015625,
+									"width": 107.29052734375,
 									"height": 25,
 									"stereotypeLabel": {
 										"$ref": "AAAAAAF9JL3fA2Tb7Ms="
@@ -6983,7 +6983,7 @@
 							"containerChangeable": true,
 							"left": 296,
 							"top": 512,
-							"width": 106.79541015625,
+							"width": 107.29052734375,
 							"height": 25,
 							"nameCompartment": {
 								"$ref": "AAAAAAF9JL3fAmTajNo="
@@ -7404,7 +7404,7 @@
 											"top": 551,
 											"width": 146.4404296875,
 											"height": 13,
-											"text": "MaskDetectionResult"
+											"text": "WorkerDetectionResult"
 										},
 										{
 											"_type": "LabelView",
@@ -12414,7 +12414,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF9JO3FWP9GwWM="
 									},
-									"name": "camera"
+									"name": "camera",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -12485,7 +12486,8 @@
 									"_parent": {
 										"$ref": "AAAAAAF9JL9BLuxrAUY="
 									},
-									"name": "camera"
+									"name": "camera",
+									"type": ""
 								},
 								{
 									"_type": "UMLParameter",
@@ -12510,7 +12512,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "MaskDetector",
+					"name": "WorkerDetector",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -12542,7 +12544,8 @@
 								"$ref": "AAAAAAF9JMjlKuyHnD8="
 							},
 							"name": "camera",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -12600,7 +12603,7 @@
 					"_parent": {
 						"$ref": "AAAAAAFF+qBWK6M3Z8Y="
 					},
-					"name": "MaskDetectionResult",
+					"name": "WorkerDetectionResult",
 					"ownedElements": [
 						{
 							"_type": "UMLGeneralization",
@@ -12781,7 +12784,8 @@
 								"$ref": "AAAAAAF9JOaxV/pw4lE="
 							},
 							"name": "rules",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						},
 						{
 							"_type": "UMLAttribute",
@@ -12790,7 +12794,8 @@
 								"$ref": "AAAAAAF9JOaxV/pw4lE="
 							},
 							"name": "latestCapture",
-							"visibility": "private"
+							"visibility": "private",
+							"type": ""
 						}
 					],
 					"operations": [
