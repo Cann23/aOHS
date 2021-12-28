@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 
 from django.views import View
 
-from backend.models import Violation
+from backend.models import Violation, Camera, Model, Worker
 
 
 class ViolationView(View):
