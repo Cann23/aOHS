@@ -53,5 +53,5 @@ class ViolationEditView(View):
         cameraId = request.POST['cameraId']
         workerId = request.POST['workerId']
         modelId = request.POST['modelId']
-        Violation.objects.filter(id=violation_id).update(cameraId=cameraId, workerId=worker, modelId=modelId)
+        Violation.objects.filter(id=violation_id).update(cameraId=cameraId, workerId=workerId, modelId=modelId)
         return redirect('/dashboard/violations/')

@@ -15,7 +15,7 @@
       <div class="mb-3">
         <label for="worker" class="form-label">Camera</label>
           <select name="worker" id="worker" class="form-select">
-              <option selected>Select a camera</option>
+              <option selected>Select a worker</option>
               {% for worker in workers %}
                   <option value="{{ worker.id }}">{{ worker.name }}</option>
               {% endfor %}
