@@ -25,6 +25,17 @@ class CameraView(View):
         cameras = Camera.objects.all()
         return render(request, 'dashboard/listCamera.html', {'headers': headers, 'data': cameras})
 
+class CameraEditView(View):
+    def get(self, request, camera_id):
+        camera = Camera.objects.get(id = camera_id)
+        return render(request, 'dashboard/camera-edit.html', {"camera": camera})
+
+    def post(self, request, camera_id):
+        name = request.POST['name']
+        url = request.POST['url']
+        Camera.objects.filter(id=camera_id).update(name=name, url=url)
+        return redirect('/dashboard/cameras')
+
 
 class VideoCamera(object):
     def __init__(self):

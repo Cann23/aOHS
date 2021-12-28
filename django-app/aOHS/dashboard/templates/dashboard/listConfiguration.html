@@ -22,7 +22,7 @@
                 <td>{{ datum.modelId }}</td>
                 <td>{{ datum.created }}</td>
                 <td>{{ datum.modified }}</td>
-                <td><button type="button" class="btn"><i class="fa fa-edit"></i></button></td>
+                <th><a class="btn" href="/dashboard/configurations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
             </tr>
         {% endfor %}
         </tbody>
