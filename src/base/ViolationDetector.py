@@ -3,5 +3,5 @@ class ViolationDetector(object):
 
     # Takes a camera, then performs the necessary detections and returns the detection results.
     # Child classes must override this method.
-    def Detect(camera):
+    def Detect(self, camera):
         raise NotImplementedError

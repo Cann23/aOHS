@@ -7,6 +7,6 @@ class OpenCVImageAdapter(ia.ImageAdapter):
     def __init__(self):
         pass
 
-    def GetImage(camera: cam.Camera):
+    def GetImage(self, camera: cam.Camera):
         frame = camera.lastFrame
         raise NotImplementedError
