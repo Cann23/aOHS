@@ -31,6 +31,11 @@ class StatisticView(View):
             .annotate(c=Count('id')) \
             .order_by()
 
+        violation_by_camera = Violation.objects \
+            .values('cameraId') \
+            .annotate(c=Count('id')) \
+            .order_by()
+
         return render(request, 'dashboard/listStatistic.html',
                       {'violations_weekly': violations_last_week, "violations_monthly": violations_last_month,
-                       'violation_by_worker': violation_by_worker})
+                       'violation_by_worker': violation_by_worker, "violation_by_camera": violation_by_camera})
