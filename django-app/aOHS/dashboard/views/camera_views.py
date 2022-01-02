@@ -1,10 +1,10 @@
 from django.views.decorators import gzip
 
-from django.http import StreamingHttpResponse, HttpResponseServerError
+from django.http import StreamingHttpResponse, HttpResponseServerError, HttpResponse
 from django.shortcuts import render, redirect
 
 from django.views import View
-
+import os
 from backend.models import Camera
 import cv2
 
@@ -63,3 +63,17 @@ def index(request):
         return StreamingHttpResponse(gen(VideoCamera()), content_type="multipart/x-mixed-replace;boundary=frame")
     except HttpResponseServerError as e:
         print("aborted")
+
+
+class ImageView(View):
+    def get(self, request, id):
+        if id != 0:
+            os.remove(f"/home/enssr/Desktop/ceng4-1/ceng491/seace/lib/Helmet-Vest-Worker/frames/{id-1}.jpg")
+        with open(f"/home/enssr/Desktop/ceng4-1/ceng491/seace/lib/Helmet-Vest-Worker/frames/{id}.jpg", "rb") as f:
+            return HttpResponse(f.read(), content_type="image/jpeg")
+
+
+class Home(View):
+    def get(self, request):
+        return render(request, 'dashboard/home.html')
+

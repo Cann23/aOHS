@@ -6,7 +6,7 @@ from dashboard.views.model_views import ModelView, ModelEditView
 from dashboard.views.statistic_views import StatisticView
 from dashboard.views.violation_views import ViolationView, ViolationCreateView, ViolationEditView
 from dashboard.views.worker_views import WorkerView, WorkerCreateView, WorkerEditView
-from dashboard.views.camera_views import index
+from dashboard.views.camera_views import index, ImageView, Home
 
 urlpatterns = [
     path('dashboard/workers/', WorkerView.as_view()),
@@ -25,4 +25,6 @@ urlpatterns = [
     path('dashboard/cameras/edit/<int:camera_id>/', CameraEditView.as_view()),
     path('dashboard/statistics/', StatisticView.as_view()),
     path('video/', index),
+    path('img/x/<int:id>', ImageView.as_view()),
+    path('img/', Home.as_view()),
 ]
