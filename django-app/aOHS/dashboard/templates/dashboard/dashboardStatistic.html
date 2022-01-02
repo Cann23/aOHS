@@ -5,21 +5,28 @@
         <!-- Sidebar -->
         <div class="bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading text-center py-4 primary-text fs-4 fw-bold  border-bottom"><i
-                    class="fas fa-user-secret me-2"></i>aOHS</div>
+                    class="fas fa-user-secret me-2"></i>aOHS
+            </div>
             <div class="list-group list-group-flush my-3">
                 <a href="#" class="list-group-item list-group-item-action bg-transparent second-text active"><i
                         class="fas fa-tachometer-alt me-2"></i>Dashboard</a>
-                <a href="/dashboard/workers/" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="/dashboard/workers/"
+                   class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-hard-hat me-2"></i>Workers</a>
-                <a href="/dashboard/cameras/" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="/dashboard/cameras/"
+                   class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-camera me-2"></i>Cameras</a>
-                <a href="/dashboard/violations/" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="/dashboard/violations/"
+                   class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-paperclip me-2"></i>Violations</a>
-                <a href="/dashboard/configurations/" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="/dashboard/configurations/"
+                   class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-cog me-2"></i>Configurations</a>
-                <a href="/dashboard/models/" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="/dashboard/models/"
+                   class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-brain me-2"></i>Models</a>
-                <a href="/dashboard/statistics/" class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
+                <a href="/dashboard/statistics/"
+                   class="list-group-item list-group-item-action bg-transparent second-text fw-bold"><i
                         class="fas fa-brain me-2"></i>Statistics</a>
                 <a href="#" class="list-group-item list-group-item-action bg-transparent text-danger fw-bold"><i
                         class="fas fa-power-off me-2"></i>Logout</a>
@@ -36,8 +43,8 @@
                 </div>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+                        data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
@@ -45,7 +52,7 @@
                     <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle second-text fw-bold" href="#" id="navbarDropdown"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                               role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fas fa-user me-2"></i>John Doe
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -77,7 +84,7 @@
                                 <p class="fs-5">Violations</p>
                             </div>
                             <i
-                                class="fas fa-paperclip fs-2 primary-text border rounded-full secondary-bg p-3"></i>
+                                    class="fas fa-paperclip fs-2 primary-text border rounded-full secondary-bg p-3"></i>
                         </div>
                     </div>
 
@@ -102,13 +109,21 @@
                     </div>
                 </div>
 
-                <div class="row my-5">
+                <div class="row row-cols-2">
                     <div class="col">
                         {% block table %}
                         {% endblock %}
                     </div>
                     <div class="col">
                         {% block table-2 %}
+                        {% endblock %}
+                    </div>
+                    <div class="col">
+                        {% block table-3 %}
+                        {% endblock %}
+                    </div>
+                    <div class="col">
+                        {% block table-4 %}
                         {% endblock %}
                     </div>
                 </div>

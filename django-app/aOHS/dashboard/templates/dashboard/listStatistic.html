@@ -1,6 +1,5 @@
 {% extends 'dashboard/dashboardStatistic.html' %}
 
-{% block title %} violations last week {% endblock title %}
 
 {% block scripts %}
     <script>
@@ -9,13 +8,13 @@
             const myChart = new Chart(ctx, {
                 type: 'bar',
                 data: {
-                    labels: [{% for violation in violations %}
+                    labels: [{% for violation in violations_weekly %}
                         '{{ violation.day }}',
                     {% endfor %}
                     ],
                     datasets: [{
                         label: '# of Violations Weekly',
-                        data: [{% for violation in violations %}
+                        data: [{% for violation in violations_weekly %}
                             {{ violation.c }}
                         {% endfor %}
                         ],
@@ -49,29 +48,20 @@
         })
     </script>
 {% endblock scripts %}
-
-{% block table %}
-    <canvas id="myChart" width="100" height="50"></canvas>
-{% endblock table %}
-
-
-
-{% block title %} violations last week {% endblock title %}
-
-{% block scripts2 %}
+{% block scripts-2 %}
     <script>
         $(document).ready(function () {
             const ctx = document.getElementById('myLine').getContext('2d');
             const myLine = new Chart(ctx, {
                 type: 'line',
                 data: {
-                    labels: [{% for violation in violations %}
+                    labels: [{% for violation in violations_monthly %}
                         '{{ violation.day }}',
                     {% endfor %}
                     ],
                     datasets: [{
                         label: '# of Violations Monthly',
-                        data: [{% for violation in violations %}
+                        data: [{% for violation in violations_monthly %}
                             {{ violation.c }}
                         {% endfor %}
                         ],
@@ -104,8 +94,63 @@
             });
         })
     </script>
-{% endblock scripts2 %}
-
+{% endblock scripts-2 %}
+{% block scripts-3 %}
+    <script>
+        $(document).ready(function () {
+            const ctx = document.getElementById('myBar').getContext('2d');
+            const myBar = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for violation in violation_by_worker %}
+                        '{{ violation.workerId }}',
+                    {% endfor %}
+                    ],
+                    datasets: [{
+                        label: '# of Violations by Worker',
+                        data: [{% for violation in violation_by_worker %}
+                            {{ violation.c }}
+                        {% endfor %}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
+                    }
+                }
+            });
+        })
+    </script>
+{% endblock scripts-3 %}
+{% block table %}
+    <canvas id="myChart" width="100" height="50"></canvas>
+{% endblock table %}
 {% block table-2 %}
     <canvas id="myLine" width="100" height="50"></canvas>
 {% endblock table-2 %}
+{% block table-3 %}
+    <canvas id="myBar" width="100" height="50"></canvas>
+{% endblock table-3 %}
+{% block table-4 %}
+    <canvas id="myLine" width="100" height="50"></canvas>
+{% endblock table-4 %}

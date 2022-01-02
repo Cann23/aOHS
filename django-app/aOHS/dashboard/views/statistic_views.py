@@ -14,10 +14,10 @@ class StatisticView(View):
         from_date_weekly = datetime.now() - timedelta(days=7)
         from_date_monthly = datetime.now() - timedelta(days=30)
 
-        violations_last_week = Violation.objects.filter(created__range=[from_date_weekly, datetime.now()])\
-            .annotate(day=TruncDay('created'))\
-            .values('day')\
-            .annotate(c=Count('id'))\
+        violations_last_week = Violation.objects.filter(created__range=[from_date_weekly, datetime.now()]) \
+            .annotate(day=TruncDay('created')) \
+            .values('day') \
+            .annotate(c=Count('id')) \
             .values('day', 'c')
 
         violations_last_month = Violation.objects.filter(created__range=[from_date_monthly, datetime.now()]) \
@@ -26,7 +26,11 @@ class StatisticView(View):
             .annotate(c=Count('id')) \
             .values('day', 'c')
 
-        # print(violations_last_week)
-        return render(request, 'dashboard/listStatistic.html', {'violations': violations_last_week})
+        violation_by_worker = Violation.objects \
+            .values('workerId') \
+            .annotate(c=Count('id')) \
+            .order_by()
 
-
+        return render(request, 'dashboard/listStatistic.html',
+                      {'violations_weekly': violations_last_week, "violations_monthly": violations_last_month,
+                       'violation_by_worker': violation_by_worker})
