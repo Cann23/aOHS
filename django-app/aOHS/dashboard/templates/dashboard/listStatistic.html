@@ -1,4 +1,4 @@
-{% extends 'baseStatistic.html' %}
+{% extends 'dashboard/dashboardStatistic.html' %}
 
 {% block title %} violations last week {% endblock title %}
 
@@ -50,7 +50,7 @@
     </script>
 {% endblock scripts %}
 
-{% block content %}
-    <canvas id="myChart" width="200" height="100"></canvas>
-{% endblock content %}
+{% block table %}
+    <canvas id="myChart" width="100" height="50"></canvas>
+{% endblock table %}
 
