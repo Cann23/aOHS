@@ -15,7 +15,7 @@
                     datasets: [{
                         label: '# of Violations Weekly',
                         data: [{% for violation in violations_weekly %}
-                            {{ violation.c }}
+                            {{ violation.c }},
                         {% endfor %}
                         ],
                         backgroundColor: [
@@ -38,10 +38,13 @@
                     }]
                 },
                 options: {
+                    responsive: true,
                     scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
                     }
                 }
             });
@@ -62,7 +65,7 @@
                     datasets: [{
                         label: '# of Violations Monthly',
                         data: [{% for violation in violations_monthly %}
-                            {{ violation.c }}
+                            {{ violation.c }},
                         {% endfor %}
                         ],
                         backgroundColor: [
@@ -85,10 +88,13 @@
                     }]
                 },
                 options: {
+                    responsive: true,
                     scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
                     }
                 }
             });
@@ -103,13 +109,13 @@
                 type: 'bar',
                 data: {
                     labels: [{% for violation in violation_by_worker %}
-                        '{{ violation.workerId }}',
+                        {{ violation.workerId }},
                     {% endfor %}
                     ],
                     datasets: [{
                         label: '# of Violations by Worker',
                         data: [{% for violation in violation_by_worker %}
-                            {{ violation.c }}
+                            {{ violation.c }},
                         {% endfor %}
                         ],
                         backgroundColor: [
@@ -132,10 +138,13 @@
                     }]
                 },
                 options: {
+                    responsive: true,
                     scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
                     }
                 }
             });
@@ -150,13 +159,13 @@
                 type: 'bar',
                 data: {
                     labels: [{% for violation in violation_by_camera %}
-                        '{{ violation.cameraId }}',
+                        {{ violation.cameraId }},
                     {% endfor %}
                     ],
                     datasets: [{
                         label: '# of Violations by Camera',
                         data: [{% for violation in violation_by_camera %}
-                            {{ violation.c }}
+                            {{ violation.c }},
                         {% endfor %}
                         ],
                         backgroundColor: [
@@ -179,10 +188,13 @@
                     }]
                 },
                 options: {
+                    responsive: true,
                     scales: {
-                        y: {
-                            beginAtZero: true
-                        }
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
                     }
                 }
             });
