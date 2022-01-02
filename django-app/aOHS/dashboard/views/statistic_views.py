@@ -11,13 +11,22 @@ from backend.models import Violation, Camera, Model, Worker
 
 class StatisticView(View):
     def get(self, request):
-        from_date = datetime.now() - timedelta(days=7)
+        from_date_weekly = datetime.now() - timedelta(days=7)
+        from_date_monthly = datetime.now() - timedelta(days=30)
 
-        violations_last_week = Violation.objects.filter(created__range=[from_date, datetime.now()])\
+        violations_last_week = Violation.objects.filter(created__range=[from_date_weekly, datetime.now()])\
             .annotate(day=TruncDay('created'))\
             .values('day')\
             .annotate(c=Count('id'))\
             .values('day', 'c')
 
+        violations_last_month = Violation.objects.filter(created__range=[from_date_monthly, datetime.now()]) \
+            .annotate(day=TruncDay('created')) \
+            .values('day') \
+            .annotate(c=Count('id')) \
+            .values('day', 'c')
+
         # print(violations_last_week)
         return render(request, 'dashboard/listStatistic.html', {'violations': violations_last_week})
+
+
