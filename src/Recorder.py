@@ -1,4 +1,5 @@
 import threading
+import time
 
 import base.Camera as Camera
 
@@ -20,14 +21,14 @@ class Recorder(object):
     # path: Path to save the file.
     # delay: How long to wait before saving the file.
     def Save(self, path, delay):
-        raise NotImplementedError
+        pass
 
     # Starts recording.
     def StartRecording(self):
         if is_recording:
             return
         is_recording = True
-        _record_job_ = threading.Thread(target=self.Record_Job)
+        _record_job_ = threading.Thread(target=self.__RecordJob__)
         _record_job_.start()
 
     # Stops recording.
@@ -37,7 +38,7 @@ class Recorder(object):
             _record_job_.join()
 
     # Performs the recording
-    def Record_Job(self):
+    def __RecordJob__(self):
         while is_recording:
             frame = self.camera.lastFrame
             # Add frame to the list.
@@ -45,3 +46,5 @@ class Recorder(object):
             # If the frame is filled, drop until it fits the buffer.
             while frames.length() > fps * max_duration:
                 frames.pop(0)
+
+    
