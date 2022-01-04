@@ -15,7 +15,7 @@ class Recorder(object):
         self.max_duration = max_duration
         self.is_recording = False
         self.frames = []
-        self._record_job_ = None
+        self.__record_job__ = None
 
     # Save the current data as a video file.
     # path: Path to save the file.
@@ -28,14 +28,14 @@ class Recorder(object):
         if is_recording:
             return
         is_recording = True
-        _record_job_ = threading.Thread(target=self.__RecordJob__)
-        _record_job_.start()
+        self.__record_job__ = threading.Thread(target=self.__RecordJob__)
+        self.__record_job__.start()
 
     # Stops recording.
     def StopRecording(self):
-        if is_recording and _record_job_:
+        if is_recording and __record_job__:
             is_recording = False
-            _record_job_.join()
+            self.__record_job__.join()
 
     # Performs the recording
     def __RecordJob__(self):
