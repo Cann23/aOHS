@@ -11,3 +11,5 @@ class Camera(object):
         self.rules = rules
         # Latest capture of this camera.
         self.lastFrame = None
+        # Frame size in pixels: (width, height).
+        self.size = (0, 0)

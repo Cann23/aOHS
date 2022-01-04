@@ -18,6 +18,10 @@ class OpenCVCamera(Camera.Camera):
             if self.__videoCapture__ is None or not self.__videoCapture__.isOpened():
                 # Invalid handle, try again.
                 self.__videoCapture__ = cv.VideoCapture(self.id)
+                if self.__videoCapture__ and self.__videoCapture__.isOpened():
+                    width = self.__videoCapture__.get(3)
+                    height = self.__videoCapture__.get(4)
+                    self.size = (width, height)
             else:
                 ret, frame = self.__videoCapture__.read()
                 self.lastFrame = frame
