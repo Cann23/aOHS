@@ -24,12 +24,18 @@ class OpenCVCamera(Camera.Camera):
 
     # Starts capturing.
     def Activate(self):
+        if self.isCapturing:
+            # Already capturing.
+            return
         self.isCapturing = True
         self.__capture_job__ = threading.Thread(target=self.__capture__)
         self.__capture_job__.start()
 
     # Releases the camera capture.
     def Release(self):
+        if not self.isCapturing:
+            # Already inactive.
+            return
         self.isCapturing = False
         if self.__capture_job__ is not None:
             self.__capture_job__.join()
