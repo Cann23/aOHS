@@ -19,8 +19,8 @@ class OpenCVCamera(Camera.Camera):
                 # Invalid handle, try again.
                 self.__videoCapture__ = cv.VideoCapture(self.id)
                 if self.__videoCapture__ and self.__videoCapture__.isOpened():
-                    width = self.__videoCapture__.get(3)
-                    height = self.__videoCapture__.get(4)
+                    width = int(self.__videoCapture__.get(3))
+                    height = int(self.__videoCapture__.get(4))
                     self.size = (width, height)
             else:
                 ret, frame = self.__videoCapture__.read()
