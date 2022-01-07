@@ -9,7 +9,7 @@ while(cap.isOpened()):
         break
     cv2.imwrite('frames/'+str(i)+'.jpg',frame)
     i+=1
-    time.sleep(1)
+    time.sleep(0.1)
 
 cap.release()
 cv2.destroyAllWindows()

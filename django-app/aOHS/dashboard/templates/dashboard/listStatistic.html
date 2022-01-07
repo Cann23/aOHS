@@ -1,0 +1,268 @@
+{% extends 'dashboard/dashboardStatistic.html' %}
+
+
+{% block scripts %}
+    <script>
+        $(document).ready(function () {
+            const ctx = document.getElementById('myChart').getContext('2d');
+            const myChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for violation in violations_weekly %}
+                        '{{ violation.day }}',
+                    {% endfor %}
+                    ],
+                    datasets: [{
+                        label: '# of Violations Weekly',
+                        data: [{% for violation in violations_weekly %}
+                            {{ violation.c }},
+                        {% endfor %}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        })
+    </script>
+{% endblock scripts %}
+{% block scripts-2 %}
+    <script>
+        $(document).ready(function () {
+            const ctx = document.getElementById('myLine').getContext('2d');
+            const myLine = new Chart(ctx, {
+                type: 'line',
+                data: {
+                    labels: [{% for violation in violations_monthly %}
+                        '{{ violation.day }}',
+                    {% endfor %}
+                    ],
+                    datasets: [{
+                        label: '# of Violations Monthly',
+                        data: [{% for violation in violations_monthly %}
+                            {{ violation.c }},
+                        {% endfor %}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        })
+    </script>
+{% endblock scripts-2 %}
+{% block scripts-3 %}
+    <script>
+        $(document).ready(function () {
+            const ctx = document.getElementById('myBar').getContext('2d');
+            const myBar = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for violation in violation_by_worker %}
+                        {{ violation.workerId }},
+                    {% endfor %}
+                    ],
+                    datasets: [{
+                        label: '# of Violations by Worker',
+                        data: [{% for violation in violation_by_worker %}
+                            {{ violation.c }},
+                        {% endfor %}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        })
+    </script>
+{% endblock scripts-3 %}
+{% block scripts-4 %}
+    <script>
+        $(document).ready(function () {
+            const ctx = document.getElementById('myBarCamera').getContext('2d');
+            const myBarCamera = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for violation in violation_by_camera %}
+                        {{ violation.cameraId }},
+                    {% endfor %}
+                    ],
+                    datasets: [{
+                        label: '# of Violations by Camera',
+                        data: [{% for violation in violation_by_camera %}
+                            {{ violation.c }},
+                        {% endfor %}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        })
+    </script>
+{% endblock scripts-4 %}
+{% block scripts-5 %}
+    <script>
+        $(document).ready(function () {
+            const ctx = document.getElementById('myBarModel').getContext('2d');
+            const myBarModel = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [{% for violation in violation_by_model %}
+                        {{ violation.modelId }},
+                    {% endfor %}
+                    ],
+                    datasets: [{
+                        label: '# of Violations by Model',
+                        data: [{% for violation in violation_by_model %}
+                            {{ violation.c }},
+                        {% endfor %}
+                        ],
+                        backgroundColor: [
+                            'rgba(255, 99, 132, 0.2)',
+                            'rgba(54, 162, 235, 0.2)',
+                            'rgba(255, 206, 86, 0.2)',
+                            'rgba(75, 192, 192, 0.2)',
+                            'rgba(153, 102, 255, 0.2)',
+                            'rgba(255, 159, 64, 0.2)'
+                        ],
+                        borderColor: [
+                            'rgba(255, 99, 132, 1)',
+                            'rgba(54, 162, 235, 1)',
+                            'rgba(255, 206, 86, 1)',
+                            'rgba(75, 192, 192, 1)',
+                            'rgba(153, 102, 255, 1)',
+                            'rgba(255, 159, 64, 1)'
+                        ],
+                        borderWidth: 1
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+        })
+    </script>
+{% endblock scripts-5 %}
+{% block table %}
+    <canvas id="myChart" width="100" height="50"></canvas>
+{% endblock table %}
+{% block table-2 %}
+    <canvas id="myLine" width="100" height="50"></canvas>
+{% endblock table-2 %}
+{% block table-3 %}
+    <canvas id="myBar" width="100" height="50"></canvas>
+{% endblock table-3 %}
+{% block table-4 %}
+    <canvas id="myBarCamera" width="100" height="50"></canvas>
+{% endblock table-4 %}
+{% block table-5 %}
+    <canvas id="myBarModel" width="100" height="35"></canvas>
+{% endblock table-5 %}
