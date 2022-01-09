@@ -18,7 +18,7 @@
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ datum.name }}</td>
-                <td>{{ datum.url }}</td>
+                <td><a href="/img">{{ datum.url }}</a></td>
                 <th><a class="btn" href="/dashboard/cameras/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
             </tr>
         {% endfor %}

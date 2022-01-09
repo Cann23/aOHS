@@ -67,10 +67,12 @@ def index(request):
 
 class ImageView(View):
     def get(self, request, id):
-        if id != 0:
-            os.remove(f"/home/enssr/Desktop/ceng4-1/ceng491/seace/lib/Helmet-Vest-Worker/frames/{id-1}.jpg")
-        with open(f"/home/enssr/Desktop/ceng4-1/ceng491/seace/lib/Helmet-Vest-Worker/frames/{id}.jpg", "rb") as f:
-            return HttpResponse(f.read(), content_type="image/jpeg")
+        # if id != 0:
+        #     os.remove(f"/home/enssr/Desktop/ceng4-1/ceng491/seace/lib/Helmet-Vest-Worker/frames/{id-1}.jpg")
+        # with open(f"/home/enssr/Desktop/ceng4-1/ceng491/seace/lib/Helmet-Vest-Worker/frames/{id}.jpg", "rb") as f:
+        #     return HttpResponse(f.read(), content_type="image/jpeg")
+        with open(f"/home/enssr/Desktop/ceng4-1/ceng491/seace/src/capture0.jpg", "rb") as f:
+            return HttpResponse(f.read(), content_type="image/jpg")
 
 
 class Home(View):

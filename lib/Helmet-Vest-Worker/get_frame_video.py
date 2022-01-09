@@ -1,7 +1,7 @@
 import cv2
 import time
 # Opens the Video file
-cap= cv2.VideoCapture(0)
+cap= cv2.VideoCapture("http://192.168.1.102:8080/video")
 i=0
 while(cap.isOpened()):
     ret, frame = cap.read()
