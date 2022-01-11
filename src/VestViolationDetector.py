@@ -14,5 +14,3 @@ class VestViolationDetector(b.HelmetVestWorkerViolationDetector):
         img = adapter.GetImage(camera)
         detection, has_violation_occured = self.GetDetection(img, self.__violation_type__)
         raise NotImplementedError
-
-
