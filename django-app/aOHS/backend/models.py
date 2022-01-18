@@ -11,6 +11,7 @@ class Camera(models.Model):
     id = models.AutoField(primary_key=True)
     url = models.URLField(max_length=100)
     name = models.CharField(max_length=100, null=False)
+    userId = models.ForeignKey(User, on_delete=models.DO_NOTHING, null=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     active = models.BooleanField(default=False)
