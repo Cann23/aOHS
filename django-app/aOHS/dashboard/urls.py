@@ -3,7 +3,7 @@ from django.urls import path
 from dashboard.views.camera_views import CameraView, CameraCreateView, CameraEditView, CameraDeleteView
 from dashboard.views.configuration_views import ConfigurationView, ConfigurationCreateView, ConfigurationEditView, \
     ConfigurationDeleteView
-from dashboard.views.model_views import ModelView, ModelEditView
+from dashboard.views.model_views import ModelView, ModelEditView, ModelDeleteView
 from dashboard.views.statistic_views import StatisticView
 from dashboard.views.violation_views import ViolationView, ViolationCreateView, ViolationEditView, ViolationDeleteView
 from dashboard.views.worker_views import WorkerView, WorkerCreateView, WorkerEditView, WorkerDeleteView
@@ -20,6 +20,7 @@ urlpatterns = [
     path('dashboard/violations/delete/<int:violation_id>/', ViolationDeleteView.as_view()),
     path('dashboard/models/', ModelView.as_view()),
     path('dashboard/models/edit/<int:model_id>/', ModelEditView.as_view()),
+    path('dashboard/models/delete/<int:model_id>/', ModelDeleteView.as_view()),
     path('dashboard/configurations/', ConfigurationView.as_view()),
     path('dashboard/configurations/add/', ConfigurationCreateView.as_view()),
     path('dashboard/configurations/edit/<int:configuration_id>/', ConfigurationEditView.as_view()),
