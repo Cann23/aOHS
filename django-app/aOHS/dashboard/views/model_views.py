@@ -33,7 +33,8 @@ class ModelEditView(View):
         Model.objects.filter(id=model_id).update(name=name, path=path)
         return redirect('/dashboard/models')
 
+
 class ModelDeleteView(View):
     def get(self, request, model_id):
-        Model.objects.filter(id=model_id)
+        Model.objects.filter(id=model_id).delete()
         return redirect('/dashboard/models')
