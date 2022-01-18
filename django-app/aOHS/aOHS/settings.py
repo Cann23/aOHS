@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'corsheaders',
+    'crispy_forms',
     'backend',
     'channels',
     'dashboard',
@@ -138,3 +139,8 @@ CHANNEL_LAYERS = {
         }
     }
 }
+
+LOGIN_REDIRECT_URL = '/dashboard/'
+
+LOGOUT_REDIRECT_URL = '/login/'
+

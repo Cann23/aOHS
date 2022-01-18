@@ -10,6 +10,7 @@ from dashboard.views.worker_views import WorkerView, WorkerCreateView, WorkerEdi
 from dashboard.views.camera_views import index, ImageView, Home
 
 urlpatterns = [
+    path('dashboard/', WorkerView.as_view()),
     path('dashboard/workers/', WorkerView.as_view()),
     path('dashboard/workers/add/', WorkerCreateView.as_view()),
     path('dashboard/workers/edit/<int:worker_id>/', WorkerEditView.as_view()),
