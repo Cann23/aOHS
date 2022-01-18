@@ -57,3 +57,8 @@ class ViolationEditView(View):
         comment = request.POST['comment']
         Violation.objects.filter(id=violation_id).update(cameraId=cameraId, workerId=workerId, modelId=modelId, comment=comment)
         return redirect('/dashboard/violations/')
+
+class ViolationDeleteView(View):
+    def get(self, request, violation_id):
+        Violation.objects.filter(id=violation_id).update(valid=False)
+        return redirect('/dashboard/violations')

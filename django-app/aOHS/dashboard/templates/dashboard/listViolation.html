@@ -25,6 +25,7 @@
                 <td>{{ datum.created }}</td>
                 <td>{{ datum.modified }}</td>
                 <th><a class="btn" href="/dashboard/violations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
+                <th><a class="btn" href="/dashboard/violations/delete/{{ datum.id }}/"><i class="fa fa-trash"></i></a></th>
             </tr>
         {% endfor %}
         </tbody>
