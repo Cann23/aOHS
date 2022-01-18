@@ -5,13 +5,13 @@
 
     <table class="table bg-white rounded shadow-sm  table-hover">
         <thead>
-            <tr>
-                <th scope="col" width="50">#</th>
-                {% for header in headers %}
-                    <th scope="col">{{ header }}</th>
-                {% endfor %}
-                <th><a class="btn" href="/dashboard/configurations/add/"><i class="fa fa-plus"></i></a></th>
-            </tr>
+        <tr>
+            <th scope="col" width="50">#</th>
+            {% for header in headers %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+            <th><a class="btn" href="/dashboard/configurations/add/"><i class="fa fa-plus"></i></a></th>
+        </tr>
         </thead>
         <tbody>
         {% for datum in data %}
@@ -22,7 +22,10 @@
                 <td>{{ datum.modelId }}</td>
                 <td>{{ datum.created }}</td>
                 <td>{{ datum.modified }}</td>
-                <th><a class="btn" href="/dashboard/configurations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
+                <th><a class="btn" href="/dashboard/configurations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a>
+                </th>
+                <th><a class="btn" href="/dashboard/configurations/delete/{{ datum.id }}/"><i
+                        class="fa fa-trash"></i></a></th>
             </tr>
         {% endfor %}
         </tbody>
