@@ -8,7 +8,7 @@ from backend.models import Violation, Camera, Model, Worker
 class ViolationView(View):
     def get(self, request):
         headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
-        data = Violation.objects.all()
+        data = Violation.objects.filter(valid=True)
         return render(request, 'dashboard/listViolation.html', {'headers': headers, 'data': data})
 
     def put(self, request):
