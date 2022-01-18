@@ -1,6 +1,7 @@
 import base.HelmetVestWorkerViolationDetector as b
 import base.Camera as cam
 from OpenCVImageAdapter import *
+from WorkerDetectionResult import *
 
 class WorkerViolationDetector(b.HelmetVestWorkerViolationDetector):
     """Detects worker violations."""
@@ -13,4 +14,5 @@ class WorkerViolationDetector(b.HelmetVestWorkerViolationDetector):
         adapter = OpenCVImageAdapter()
         img = adapter.GetImage(camera)
         detection, has_violation_occured = self.GetDetection(img, self.__violation_type__)
-        raise NotImplementedError
+        result = WorkerDetectionResult(camera, detection, !has_violation_occured)
+        return result
