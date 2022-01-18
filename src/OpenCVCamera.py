@@ -24,7 +24,8 @@ class OpenCVCamera(Camera.Camera):
                     self.size = (width, height)
             else:
                 ret, frame = self.__videoCapture__.read()
-                self.lastFrame = frame
+                if ret:
+                    self.lastFrame = frame
 
     # Starts capturing.
     def Activate(self):
