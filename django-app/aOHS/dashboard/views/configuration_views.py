@@ -20,11 +20,7 @@ class ConfigurationView(View):
         modified = request.PUT['modified']
         Configuration.objects.get(id=request.PUT['id']).update(cameraId=cameraId, modelId=modelId, created=created,
                                                                modified=modified)
-        return redirect('dashboard/configurations/')
-
-    def delete(self, request):
-        Configuration.objects.get(id=request.DELETE['id']).delete()
-        return redirect('dasboard/configurations/')
+        return redirect('/dashboard/configurations/')
 
 
 class ConfigurationCreateView(View):

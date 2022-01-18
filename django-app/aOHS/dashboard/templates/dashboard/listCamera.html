@@ -5,13 +5,13 @@
 
     <table class="table bg-white rounded shadow-sm  table-hover">
         <thead>
-            <tr>
-                <th scope="col" width="50">#</th>
-                {% for header in headers %}
-                    <th scope="col">{{ header }}</th>
-                {% endfor %}
-                <th><a class="btn" href="/dashboard/cameras/add/"><i class="fa fa-plus"></i></a></th>
-            </tr>
+        <tr>
+            <th scope="col" width="50">#</th>
+            {% for header in headers %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+            <th><a class="btn" href="/dashboard/cameras/add/"><i class="fa fa-plus"></i></a></th>
+        </tr>
         </thead>
         <tbody>
         {% for datum in data %}
@@ -20,6 +20,7 @@
                 <td>{{ datum.name }}</td>
                 <td><a href="/img">{{ datum.url }}</a></td>
                 <th><a class="btn" href="/dashboard/cameras/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
+                <th><a class="btn" href="/dashboard/cameras/delete/{{ datum.id }}/"><i class="fa fa-trash"></i></a></th>
             </tr>
         {% endfor %}
         </tbody>

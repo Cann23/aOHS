@@ -25,9 +25,10 @@ class CameraView(View):
         cameras = Camera.objects.all()
         return render(request, 'dashboard/listCamera.html', {'headers': headers, 'data': cameras})
 
+
 class CameraEditView(View):
     def get(self, request, camera_id):
-        camera = Camera.objects.get(id = camera_id)
+        camera = Camera.objects.get(id=camera_id)
         return render(request, 'dashboard/camera-edit.html', {"camera": camera})
 
     def post(self, request, camera_id):
@@ -35,6 +36,12 @@ class CameraEditView(View):
         url = request.POST['url']
         Camera.objects.filter(id=camera_id).update(name=name, url=url)
         return redirect('/dashboard/cameras')
+
+
+class CameraDeleteView(View):
+    def get(self, request, camera_id):
+        Camera.objects.get(id=camera_id).delete()
+        return redirect('/dashboard/cameras/')
 
 
 class VideoCamera(object):
@@ -53,8 +60,8 @@ class VideoCamera(object):
 def gen(camera):
     while True:
         frame = camera.get_frame()
-        yield(b'--frame\r\n'
-        b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
+        yield (b'--frame\r\n'
+               b'Content-Type: image/jpeg\r\n\r\n' + frame + b'\r\n\r\n')
 
 
 @gzip.gzip_page
@@ -78,4 +85,3 @@ class ImageView(View):
 class Home(View):
     def get(self, request):
         return render(request, 'dashboard/home.html')
-

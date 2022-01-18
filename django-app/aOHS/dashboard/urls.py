@@ -1,6 +1,6 @@
 from django.urls import path
 
-from dashboard.views.camera_views import CameraView, CameraCreateView, CameraEditView
+from dashboard.views.camera_views import CameraView, CameraCreateView, CameraEditView, CameraDeleteView
 from dashboard.views.configuration_views import ConfigurationView, ConfigurationCreateView, ConfigurationEditView, \
     ConfigurationDeleteView
 from dashboard.views.model_views import ModelView, ModelEditView
@@ -27,6 +27,7 @@ urlpatterns = [
     path('dashboard/cameras/', CameraView.as_view()),
     path('dashboard/cameras/add/', CameraCreateView.as_view()),
     path('dashboard/cameras/edit/<int:camera_id>/', CameraEditView.as_view()),
+    path('dashboard/cameras/delete/<int:camera_id>/', CameraDeleteView.as_view()),
     path('dashboard/statistics/', StatisticView.as_view()),
     path('video/', index),
     path('img/x/<int:id>', ImageView.as_view()),
