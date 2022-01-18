@@ -2,11 +2,11 @@ from datetime import datetime, timedelta
 
 from django.db.models import Count
 from django.db.models.functions import TruncDay
-from django.shortcuts import render, redirect
+from django.shortcuts import render
 
 from django.views import View
 
-from backend.models import Violation, Camera, Model, Worker
+from backend.models import Violation
 
 
 class StatisticView(View):
@@ -20,11 +20,17 @@ class StatisticView(View):
             .annotate(c=Count('id')) \
             .values('day', 'c')
 
+        for v in violations_last_week:
+            v['day'] = v['day'].date()
+
         violations_last_month = Violation.objects.filter(created__range=[from_date_monthly, datetime.now()]) \
             .annotate(day=TruncDay('created')) \
             .values('day') \
             .annotate(c=Count('id')) \
             .values('day', 'c')
+
+        for v in violations_last_month:
+            v['day'] = v['day'].date()
 
         violation_by_worker = Violation.objects \
             .values('workerId') \
