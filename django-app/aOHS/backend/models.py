@@ -28,6 +28,7 @@ class Worker(models.Model):
     name = models.CharField(max_length=100, null=False)
     title = models.CharField(max_length=100, null=False)
     phone = models.CharField(validators=[phone_regex], max_length=17, unique=True, null=False)
+    active = models.BooleanField(default=True, null=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

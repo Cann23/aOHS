@@ -22,6 +22,7 @@
                 <td>{{ datum.title }}</td>
                 <td>{{ datum.phone }} </td>
                 <th><a class="btn" href="/dashboard/workers/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
+                <th><a class="btn" href="/dashboard/workers/delete/{{ datum.id }}/"><i class="fa fa-trash"></i></a></th>
             </tr>
         {% endfor %}
         </tbody>

@@ -8,12 +8,8 @@ from backend.models import Worker
 class WorkerView(View):
     def get(self, request):
         headers = ['id', 'name', 'title', 'phone']
-        workers = Worker.objects.all()
+        workers = Worker.objects.filter(active=True)
         return render(request, 'dashboard/listWorker.html', {'headers': headers, 'data': workers})
-
-    def delete(self, request):
-        Worker.objects.get(id=request.DELETE['id']).delete()
-        return redirect('dashboard/workers')
 
 
 class WorkerCreateView(View):
@@ -37,4 +33,10 @@ class WorkerEditView(View):
         title = request.POST['title']
         phone = request.POST['phone']
         Worker.objects.filter(id=worker_id).update(name=name, title=title, phone=phone)
+        return redirect('/dashboard/workers')
+
+
+class WorkerDeleteView(View):
+    def get(self, request, worker_id):
+        Worker.objects.filter(id=worker_id).update(active=False)
         return redirect('/dashboard/workers')

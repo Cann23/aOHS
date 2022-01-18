@@ -5,13 +5,14 @@ from dashboard.views.configuration_views import ConfigurationView, Configuration
 from dashboard.views.model_views import ModelView, ModelEditView
 from dashboard.views.statistic_views import StatisticView
 from dashboard.views.violation_views import ViolationView, ViolationCreateView, ViolationEditView
-from dashboard.views.worker_views import WorkerView, WorkerCreateView, WorkerEditView
+from dashboard.views.worker_views import WorkerView, WorkerCreateView, WorkerEditView, WorkerDeleteView
 from dashboard.views.camera_views import index, ImageView, Home
 
 urlpatterns = [
     path('dashboard/workers/', WorkerView.as_view()),
     path('dashboard/workers/add/', WorkerCreateView.as_view()),
     path('dashboard/workers/edit/<int:worker_id>/', WorkerEditView.as_view()),
+    path('dashboard/workers/delete/<int:worker_id>/', WorkerDeleteView.as_view()),
     path('dashboard/violations/', ViolationView.as_view()),
     path('dashboard/violations/add/', ViolationCreateView.as_view()),
     path('dashboard/violations/edit/<int:violation_id>/', ViolationEditView.as_view()),
