@@ -1,9 +1,11 @@
+import base64
 import json
 import pickle
 import socket
 import struct
 
 import cv2
+from PIL import Image
 from asgiref.sync import async_to_sync
 from channels.generic.websocket import WebsocketConsumer
 from channels.generic.websocket import AsyncWebsocketConsumer
@@ -56,9 +58,14 @@ class VideoConsumer(WebsocketConsumer):
 
             frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
             frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
+            im = Image.fromarray(frame)
+            im.save('/home/enssr/Desktop/image.png')
+            print(im)
+            s = base64.b64encode(im.tobytes())
+            # print(s)
             # cv2.imshow('ImageWindow', frame)
             # cv2.waitKey(1)
-            self.send(bytes_data=frame_data)
+            self.send(bytes_data=im.tobytes())
             # while True:
             # self.send(text_data=json.dumps({
             #     'message': message
