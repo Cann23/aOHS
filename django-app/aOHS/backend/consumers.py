@@ -56,9 +56,9 @@ class VideoConsumer(WebsocketConsumer):
 
             frame = pickle.loads(frame_data, fix_imports=True, encoding="bytes")
             frame = cv2.imdecode(frame, cv2.IMREAD_COLOR)
-            cv2.imshow('ImageWindow', frame)
-            cv2.waitKey(1)
-            self.send(text_data=json.dumps({'message': frame}))
+            # cv2.imshow('ImageWindow', frame)
+            # cv2.waitKey(1)
+            self.send(bytes_data=frame_data)
             # while True:
             # self.send(text_data=json.dumps({
             #     'message': message
