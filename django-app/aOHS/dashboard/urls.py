@@ -4,6 +4,7 @@ from dashboard.views.camera_views import CameraView, CameraCreateView, CameraEdi
 from dashboard.views.configuration_views import ConfigurationView, ConfigurationCreateView, ConfigurationEditView, \
     ConfigurationDeleteView
 from dashboard.views.model_views import ModelView, ModelEditView, ModelDeleteView
+from dashboard.views.stream_views import StreamView
 from dashboard.views.statistic_views import StatisticView
 from dashboard.views.violation_views import ViolationView, ViolationCreateView, ViolationEditView, ViolationDeleteView
 from dashboard.views.worker_views import WorkerView, WorkerCreateView, WorkerEditView, WorkerDeleteView
@@ -31,6 +32,7 @@ urlpatterns = [
     path('dashboard/cameras/edit/<int:camera_id>/', CameraEditView.as_view()),
     path('dashboard/cameras/delete/<int:camera_id>/', CameraDeleteView.as_view()),
     path('dashboard/statistics/', StatisticView.as_view()),
+    path('dashboard/streams/', StreamView.as_view()),
     path('video/', index),
     path('img/x/<int:id>', ImageView.as_view()),
     path('img/', Home.as_view()),
