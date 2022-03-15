@@ -8,3 +8,4 @@ python-ffmpeg-video-streaming>=0.1
 django-cors-headers
 Pillow~=9.0.0
 requests~=2.26.0
+django-crispy-forms
