@@ -1,8 +1,18 @@
 from django.shortcuts import render, redirect
-
 from django.views import View
 
 from backend.models import Violation, Camera, Model, Worker
+
+
+class ViolationWorkerView(View):
+    def get(self, request, worker_id):
+        headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
+        data = Violation.objects.filter(valid=True, workerId=worker_id)
+        worker = Worker.objects.get(id=1)
+        worker_name = worker.name
+        worker_title = worker.title
+        return render(request, 'dashboard/listWorkerViolation.html',
+                      {'headers': headers, 'data': data, 'name': worker_name, 'title': worker_title})
 
 
 class ViolationView(View):
