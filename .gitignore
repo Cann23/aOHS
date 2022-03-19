@@ -1,3 +1,6 @@
+# General
+*.swp
+
 # Ignore visual studio files
 **/.vs/
 *.pyproj
@@ -16,3 +19,7 @@ lib/.idea/
 task/.idea/
 task/.idea/sonarlint/
 task/.idea/sonarlint/issuestore/index.pb
+
+# Python
+__pycache__/
+
