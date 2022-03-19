@@ -1,0 +1,81 @@
+<!-- chat/templates/chat/room.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8"/>
+    <title>Chat Room</title>
+</head>
+<body>
+    <textarea id="chat-log" cols="100" rows="20"></textarea><br>
+    <input id="chat-message-input" type="text" size="100"><br>
+    <input id="chat-message-submit" type="button" value="Send">
+    {{ room_name|json_script:"room-name" }}
+    
+    <img id="image">
+    <script>
+        const roomName = JSON.parse(document.getElementById('room-name').textContent);
+
+        const chatSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/backend/'
+        );
+
+        chatSocket.onmessage = function(e) {
+            // Set the Width and Height you want your resized image to be
+            console.log(e.data);
+            var image = new Image();
+            image.src = 'data:image/png;base64,' + e.data;
+            document.body.appendChild(image);
+            {#var width = 500;#}
+            {#var height = 500;#}
+            {##}
+            {##}
+            {#var canvas = document.createElement('canvas');  // Dynamically Create a Canvas Element#}
+            {#canvas.width  = width;  // Set the width of the Canvas#}
+            {#canvas.height = height;  // Set the height of the Canvas#}
+            {#var ctx = canvas.getContext("2d");  // Get the "context" of the canvas#}
+            {#var img = document.getElementById("image");  // The id of your image container#}
+            {#ctx.drawImage(img,0,0,width,height);  // Draw your image to the canvas#}
+            {##}
+            {##}
+            {#var jpegFile = canvas.toDataURL("image/jpeg"); // This will save your image as a#}
+            {#                                                //jpeg file in the base64 format.#}
+            {#console.log(img);#}
+            {#img.src = jpegFile;#}
+            // console.log(jpegFile);
+            // console.log(e.data);
+            {#var uri = URL.createObjectURL(e.data);#}
+            {#var img = new Image();#}
+            {##}
+            {#img.src = uri;#}
+            {#document.body.appendChild(img);#}
+
+            // document.body.appendChild(img);
+
+
+            // document.querySelector('#chat-log').value += (e.data.message + '\n');
+        };
+
+        chatSocket.onclose = function(e) {
+            console.error('Chat socket closed unexpectedly');
+        };
+
+        document.querySelector('#chat-message-input').focus();
+        document.querySelector('#chat-message-input').onkeyup = function(e) {
+            if (e.keyCode === 13) {  // enter, return
+                document.querySelector('#chat-message-submit').click();
+            }
+        };
+
+        document.querySelector('#chat-message-submit').onclick = function(e) {
+            const messageInputDom = document.querySelector('#chat-message-input');
+            const message = messageInputDom.value;
+            chatSocket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInputDom.value = '';
+        };
+    </script>
+</body>
+</html>

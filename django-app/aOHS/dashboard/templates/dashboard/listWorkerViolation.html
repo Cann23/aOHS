@@ -1,0 +1,34 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <h3 class="fs-4 mb-3">{{ title }} {{ name }}'s Violations</h3>
+
+    <table class="table bg-white rounded shadow-sm  table-hover">
+        <thead>
+        <tr>
+            <th scope="col" width="50">#</th>
+            {% for header in headers %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+            <th><a class="btn" href="/dashboard/violations/add/"><i class="fa fa-plus"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for datum in data %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ datum.id }}</td>
+                <td>{{ datum.cameraId }}</td>
+                <td>{{ datum.workerId }}</td>
+                <td>{{ datum.modelId }}</td>
+                <td>{{ datum.comment }}</td>
+                <td>{{ datum.created }}</td>
+                <td>{{ datum.modified }}</td>
+                <th><a class="btn" href="/dashboard/violations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
+                <th><a class="btn" href="/dashboard/violations/delete/{{ datum.id }}/"><i class="fa fa-trash"></i></a>
+                </th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

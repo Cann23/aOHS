@@ -1,0 +1,17 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <form action="" method="post">
+        {% csrf_token %}
+      <div class="mb-3">
+        <label for="camera" class="form-label">Camera</label>
+          <select name="camera" id="camera" class="form-select">
+              <option selected>Select a camera</option>
+              {% for camera in cameras %}
+                  <option value="{{ camera.id }}">{{ camera.name }}</option>
+              {% endfor %}
+          </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Watch</button>
+    </form>
+{% endblock %}
