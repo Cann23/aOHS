@@ -13,6 +13,14 @@ get_violations = "select v.id, w.name, m.name " \
                  "where v.isNotified = 0 " \
                  "limit 3 "
 
+
+get_workers_violations = "select v.id, w.name, m.name " \
+                 "from backend_violation v " \
+                 "join backend_worker w on w.id = v.workerId_id " \
+                 "join backend_model m on m.id = v.modelId_id " \
+                 "limit 3 "
+
+
 set_notified = "update backend_violation " \
                "set isNotified = 1 " \
                "where id = ? "
@@ -26,6 +34,13 @@ def send_message_job(context):
         context.bot.send_message(chat_id='-757413211', text=f"{violation[1]} is violating the {violation[2]} rule.")
         cursor.execute(set_notified, (violation[0],))
 
+def get_workers_violations(update, context):
+    cursor.execute(get_workers_violations)
+    violations_result_set = cursor.fetchall()
+
+    for violation in violations_result_set:
+        update.message.reply_text(f"{violation[1]} violated the {violation[0]}.")
+
 
 def start(update, context):
     update.message.reply_text("""
@@ -36,9 +51,11 @@ def start(update, context):
 updater = telegram.ext.Updater(TOKEN, use_context=True)
 disp = updater.dispatcher
 disp.add_handler(telegram.ext.CommandHandler("start", start))
-
+disp.add_handler(telegram.ext.CommandHandler("violations", get_workers_violations))
 job_queue = updater.job_queue
 job_queue.run_repeating(send_message_job, interval=10.0, first=0.0)
+
+
 
 updater.start_polling()
 updater.idle()
