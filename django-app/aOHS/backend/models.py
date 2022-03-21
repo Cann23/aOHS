@@ -54,6 +54,7 @@ class Violation(models.Model):
     modelId = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
     comment = models.CharField(max_length=250, null=True)
     valid = models.BooleanField(default=True, null=False)
+    isNotified = models.BooleanField(default=False, null=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
