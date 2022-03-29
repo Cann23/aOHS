@@ -63,7 +63,11 @@ async def offer(request):
     def on_datachannel(channel):
         @channel.on("message")
         def on_message(message):
-            pass
+            if isinstance(message, str):
+                match message:
+                    case "getCurrentCameraID":
+                        currentCameraID = -1
+                        channel.send(str(currentCameraID))
     
     @pc.on("connectionstatechange")
     async def on_connectionstatechange():
