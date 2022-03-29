@@ -59,6 +59,12 @@ async def offer(request):
 
     log_info("Created for %s", request.remote)
 
+    @pc.on("datachannel")
+    def on_datachannel(channel):
+        @channel.on("message")
+        def on_message(message):
+            pass
+    
     @pc.on("connectionstatechange")
     async def on_connectionstatechange():
         log_info("Connection state is %s", pc.connectionState)
