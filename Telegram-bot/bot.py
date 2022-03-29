@@ -21,6 +21,12 @@ get_workers_violations = "select v.id, w.name, m.name " \
                  "limit 3 "
 
 
+get_specific_worker_vioaltions = "select v.id, w.name, m.name " \
+                 "from backend_violation v " \
+                 "join backend_worker w on w.id = v.workerId_id " \
+                 "join backend_model m on m.id = v.modelId_id " \
+                 "where w.id = ?"
+
 set_notified = "update backend_violation " \
                "set isNotified = 1 " \
                "where id = ? "
@@ -48,12 +54,27 @@ def start(update, context):
     """)
 
 
+def worker(update,context):
+    workerid = (" ".join(context.args))
+    cursor.execute(get_specific_worker_vioaltions, (workerid))
+    violations_result_set = cursor.fetchall()
+    if len(violations_result_set)>0:
+        update.message.reply_text(f" violation {len(violations_result_set)} violations are  occurred by {violations_result_set[0][1]}")
+        for violation in violations_result_set:
+            update.message.reply_text(f"{violation[1]}  violated the {violation[2]}")
+
+
+
+
+
+
 updater = telegram.ext.Updater(TOKEN, use_context=True)
 disp = updater.dispatcher
 disp.add_handler(telegram.ext.CommandHandler("start", start))
 disp.add_handler(telegram.ext.CommandHandler("violations", get_workers_violations))
-job_queue = updater.job_queue
-job_queue.run_repeating(send_message_job, interval=10.0, first=0.0)
+disp.add_handler(telegram.ext.CommandHandler("worker", worker))
+#job_queue = updater.job_queue
+#job_queue.run_repeating(send_message_job, interval=10.0, first=0.0)
 
 
 
