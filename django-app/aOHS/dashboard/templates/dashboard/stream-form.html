@@ -192,21 +192,16 @@ function negotiate() {
 
         document.getElementById('offer-sdp').textContent = offer.sdp;
 
-        function getCookie(name) {
-            let cookie = document.cookie.match('(^|;) ?' + name + '=([^;]*)(;|$)');
-            return cookie ? cookie[2] : null;
-        }
-        const csrftoken = getCookie('csrftoken');
-        return fetch('http://google.com', {
+        return fetch('/offer', {
+            body: JSON.stringify({
+                sdp: offer.sdp,
+                type: offer.type,
+                video_transform: document.getElementById('video-transform').value
+            }),
             headers: {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://127.0.0.1:8080',
-                'Access-Control-Allow-Methods': 'GET, POST',
-                'Access-Control-Allow-Headers': 'authorization',
-                'Access-Control-Allow-Credentials': 'true',
-                'crossOrigin': true
+                'Content-Type': 'application/json'
             },
-            method: 'GET'
+            method: 'POST'
         });
     }).then(function(response) {
         return response.json();
