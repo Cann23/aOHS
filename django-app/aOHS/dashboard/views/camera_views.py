@@ -1,17 +1,21 @@
 from django.views.decorators import gzip
-
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import StreamingHttpResponse, HttpResponseServerError, HttpResponse
 from django.shortcuts import render, redirect
 
 from django.views import View
 import os
 from backend.models import Camera
+from dashboard.views.mixins import GetCountsMixin
 import cv2
 
 
-class CameraCreateView(View):
+class CameraCreateView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
-        return render(request, 'dashboard/camera-form.html')
+        return render(request, 'dashboard/camera-form.html',{'counts': super().get_counts()})
 
     def post(self, request):
         cameras = Camera(name=request.POST['camera_name'], url=request.POST['camera_url'])
@@ -19,17 +23,21 @@ class CameraCreateView(View):
         return redirect('/dashboard/cameras/')
 
 
-class CameraView(View):
+class CameraView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
     def get(self, request):
         headers = ['name', 'url']
         cameras = Camera.objects.all()
-        return render(request, 'dashboard/listCamera.html', {'headers': headers, 'data': cameras})
+        return render(request, 'dashboard/listCamera.html', {'headers': headers, 'data': cameras, 'counts': super().get_counts()})
 
 
-class CameraEditView(View):
+class CameraEditView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
     def get(self, request, camera_id):
         camera = Camera.objects.get(id=camera_id)
-        return render(request, 'dashboard/camera-edit.html', {"camera": camera})
+        return render(request, 'dashboard/camera-edit.html', {"camera": camera, 'counts': super().get_counts()})
 
     def post(self, request, camera_id):
         name = request.POST['name']
@@ -38,10 +46,12 @@ class CameraEditView(View):
         return redirect('/dashboard/cameras')
 
 
-class CameraDeleteView(View):
+class CameraDeleteView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
     def get(self, request, camera_id):
         Camera.objects.get(id=camera_id).delete()
-        return redirect('/dashboard/cameras/')
+        return redirect('/dashboard/cameras/', {'counts': super().get_counts()})
 
 
 class VideoCamera(object):
