@@ -32,6 +32,9 @@ class WorkerCreateView(LoginRequiredMixin, View, GetCountsMixin):
 
 
 class WorkerEditView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request, worker_id):
         worker = Worker.objects.get(id=worker_id)
         return render(request, 'dashboard/worker-edit.html', {"worker": worker, 'counts': super().get_counts()})
@@ -45,6 +48,9 @@ class WorkerEditView(LoginRequiredMixin, View, GetCountsMixin):
 
 
 class WorkerDeleteView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request, worker_id):
         Worker.objects.filter(id=worker_id).update(active=False)
         return redirect('/dashboard/workers')
