@@ -23,5 +23,5 @@ urlpatterns = [
     path('', include('backend.urls')),
     path('dashboard/', include('dashboard.urls')),
     path('', include('django.contrib.auth.urls')),
-    url(r'^.*$', RedirectView.as_view(url='dashboard/', permanent=False), name='dashboard')
+    # url(r'^.*$', RedirectView.as_view(url='dashboard/', permanent=False), name='dashboard')
 ]
