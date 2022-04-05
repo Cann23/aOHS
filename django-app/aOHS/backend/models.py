@@ -77,7 +77,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     ADMIN = 'AD'
     SPECIALIST = 'SP'
-    YEAR_IN_SCHOOL_CHOICES = [
+    ROLE = [
         (ADMIN, 'Admin'),
         (SPECIALIST, 'Specialist'),
     ]
