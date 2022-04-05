@@ -1,9 +1,8 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-
 from django.views import View
 
-from backend.models import Worker, Violation, Camera
+from backend.models import Worker
 from dashboard.views.mixins import GetCountsMixin
 
 
@@ -14,7 +13,8 @@ class WorkerView(LoginRequiredMixin, View, GetCountsMixin):
     def get(self, request):
         headers = ['id', 'name', 'title', 'phone']
         workers = Worker.objects.filter(active=True)
-        return render(request, 'dashboard/listWorker.html', {'headers': headers, 'data': workers, 'counts': super().get_counts()})
+        return render(request, 'dashboard/listWorker.html',
+                      {'headers': headers, 'data': workers, 'counts': super().get_counts()})
 
 
 class WorkerCreateView(LoginRequiredMixin, View, GetCountsMixin):

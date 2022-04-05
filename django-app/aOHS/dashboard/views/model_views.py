@@ -1,10 +1,10 @@
-from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
-
+from django.shortcuts import render, redirect
 from django.views import View
 
 from backend.models import Model
 from dashboard.views.mixins import GetCountsMixin
+
 
 class ModelView(LoginRequiredMixin, View, GetCountsMixin):
     login_url = '/login/'
@@ -13,7 +13,8 @@ class ModelView(LoginRequiredMixin, View, GetCountsMixin):
     def get(self, request):
         headers = ['id', 'name', 'path']
         models = Model.objects.all()
-        return render(request, 'dashboard/listModel.html', {'headers': headers, 'data': models, 'counts': super().get_counts()})
+        return render(request, 'dashboard/listModel.html',
+                      {'headers': headers, 'data': models, 'counts': super().get_counts()})
 
     def put(self, request):
         name = request.PUT['name']
@@ -26,13 +27,10 @@ class ModelView(LoginRequiredMixin, View, GetCountsMixin):
         return redirect('dashboard/models')
 
 
-class ModelEditView(LoginRequiredMixin, View, GetCountsMixin):
-    login_url = '/login/'
-    redirect_field_name = 'redirect_to'
-
+class ModelEditView(View):
     def get(self, request, model_id):
         model = Model.objects.get(id=model_id)
-        return render(request, 'dashboard/model-edit.html', {"model": model, 'counts': super().get_counts()})
+        return render(request, 'dashboard/model-edit.html', {"model": model})
 
     def post(self, request, model_id):
         name = request.POST['name']
@@ -41,10 +39,7 @@ class ModelEditView(LoginRequiredMixin, View, GetCountsMixin):
         return redirect('/dashboard/models')
 
 
-class ModelDeleteView(LoginRequiredMixin, View):
-    login_url = '/login/'
-    redirect_field_name = 'redirect_to'
-
+class ModelDeleteView(View):
     def get(self, request, model_id):
         Model.objects.filter(id=model_id).delete()
         return redirect('/dashboard/models')

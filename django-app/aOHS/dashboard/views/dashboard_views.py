@@ -1,14 +1,14 @@
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 
 from django.views import View
 from backend.models import Worker, Violation, Camera
+from dashboard.views.mixins import GetCountsMixin
 
 
-class DashboardView(View):
+class DashboardView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
-        counts = {
-            'workers': Worker.objects.count(),
-            'violations': Violation.objects.count(),
-            'cameras': Camera.objects.count(),
-        }
-        return render(request, 'dashboard/dashboard.html', {'counts': counts})
+        return render(request, 'dashboard/dashboard.html', {'counts': GetCountsMixin.get_counts(self)})
