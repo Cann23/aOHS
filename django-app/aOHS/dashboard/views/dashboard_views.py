@@ -7,5 +7,8 @@ from dashboard.views.mixins import GetCountsMixin
 
 
 class DashboardView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
     def get(self, request):
         return render(request, 'dashboard/dashboard.html', {'counts': GetCountsMixin.get_counts(self)})
