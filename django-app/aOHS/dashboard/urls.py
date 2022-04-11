@@ -9,7 +9,7 @@ from dashboard.views.model_views import ModelView, ModelEditView, ModelDeleteVie
 from dashboard.views.statistic_views import StatisticView
 from dashboard.views.stream_views import StreamView
 from dashboard.views.violation_views import ViolationView, ViolationCreateView, ViolationEditView, ViolationDeleteView, \
-    ViolationWorkerView
+    ViolationWorkerView, ViolationCaptureView
 from dashboard.views.worker_views import WorkerView, WorkerCreateView, WorkerEditView, WorkerDeleteView
 
 urlpatterns = [
@@ -19,6 +19,7 @@ urlpatterns = [
     path('workers/edit/<int:worker_id>/', WorkerEditView.as_view()),
     path('workers/delete/<int:worker_id>/', WorkerDeleteView.as_view()),
     path('violations/', ViolationView.as_view()),
+    path('violations/<int:violation_id>/', ViolationCaptureView.as_view()),
     path('violations/worker/<int:worker_id>/', ViolationWorkerView.as_view()),
     path('violations/add/', ViolationCreateView.as_view()),
     path('violations/edit/<int:violation_id>/', ViolationEditView.as_view()),

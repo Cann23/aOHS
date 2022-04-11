@@ -55,6 +55,7 @@ class Violation(models.Model):
     comment = models.CharField(max_length=250, null=True)
     valid = models.BooleanField(default=True, null=False)
     isNotified = models.BooleanField(default=False, null=False)
+    capture = models.ImageField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 

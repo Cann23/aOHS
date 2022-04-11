@@ -1,0 +1,35 @@
+{% extends 'dashboard/dashboard.html' %}
+
+<style>
+    #violation_capture {
+        width: 50%;
+        height: 50%;
+    }
+</style>
+
+
+{% block table %}
+    <h3 class="fs-4 mb-3">Violation Capture</h3>
+
+    <table class="table bg-white rounded shadow-sm  table-hover">
+        <thead>
+        <tr>
+            <th scope="col" width="50">#</th>
+            {% for header in headers %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+            <th><a class="btn" href="/dashboard/violations/add/"><i class="fa fa-plus"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <td>{{ data.id }}</td>
+        <td>{{ data.cameraId }}</td>
+        <td>{{ data.workerId }}</td>
+        <td>{{ data.modelId }}</td>
+        <td>{{ data.comment }}</td>
+        <td>{{ data.created }}</td>
+        <td>{{ data.modified }}</td>
+        <img id="violation_capture" src="{{ data.capture.url }}">
+        </tbody>
+    </table>
+{% endblock %}

@@ -13,15 +13,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('backend.urls')),
-    path('dashboard/', include('dashboard.urls')),
-    path('', include('django.contrib.auth.urls')),
-    # url(r'^.*$', RedirectView.as_view(url='dashboard/', permanent=False), name='dashboard')
-]
+                  path('admin/', admin.site.urls),
+                  path('', include('backend.urls')),
+                  path('dashboard/', include('dashboard.urls')),
+                  path('', include('django.contrib.auth.urls')),
+                  # url(r'^.*$', RedirectView.as_view(url='dashboard/', permanent=False), name='dashboard')
+              ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
