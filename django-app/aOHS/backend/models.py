@@ -54,6 +54,8 @@ class Violation(models.Model):
     modelId = models.ForeignKey(Model, on_delete=models.SET_NULL, null=True)
     comment = models.CharField(max_length=250, null=True)
     valid = models.BooleanField(default=True, null=False)
+    isNotified = models.BooleanField(default=False, null=False)
+    capture = models.ImageField(null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
@@ -74,9 +76,10 @@ class Configuration(models.Model):
 
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(default='default.jpg', upload_to='profile_pics')
     ADMIN = 'AD'
     SPECIALIST = 'SP'
-    YEAR_IN_SCHOOL_CHOICES = [
+    ROLE = [
         (ADMIN, 'Admin'),
         (SPECIALIST, 'Specialist'),
     ]
