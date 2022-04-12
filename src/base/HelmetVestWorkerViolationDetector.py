@@ -7,7 +7,7 @@ class HelmetVestWorkerViolationDetector(ViolationDetector):
     __has_prepared_model__ = False
 
     def __init__(self):
-        super.__init__()
+        super.__init__(self)
         if (not __has_prepared_model__):
             model.prepare_model(1)
             __has_prepared_model__ = True

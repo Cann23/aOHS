@@ -5,6 +5,7 @@ import json
 import logging
 import ssl
 import uuid
+import sqlite3
 
 from OpenCVCamera import *
 from Scheduler import *
@@ -26,6 +27,8 @@ class aOHS(object):
     def __init__(self):
         self.scheduler = Scheduler()
         self.cameras = {}
+        self.__db_connection__ = sqlite3.connect("../django-app/aOHS/db.sqlite3")
+        self.__cur_cursor__ = connection.cursor()
 
     # Creates and / or deletes cameras.
     def UpdateCameras(self):
@@ -33,6 +36,13 @@ class aOHS(object):
 
     def GetCamera(self, cameraid):
        self.cameras[cameraid]
+
+    def __RunSQL__(self, sqlcommand):
+        self.__cur_cursor__.execute(sqlcommand)
+        
+    def __RunSQLReturnResult__(self, sqlcommand):
+        self.__cur_cursor__.execute(sqlcommand)
+        return self.__cur_cursor__.fetchall()
 
 program = aOHS()
 
@@ -139,4 +149,3 @@ if __name__ == "__main__":
     web.run_app(
         app, access_log=None, host=args.host, port=args.port, ssl_context=ssl_context
     )
-
