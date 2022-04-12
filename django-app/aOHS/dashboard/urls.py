@@ -6,6 +6,7 @@ from dashboard.views.configuration_views import ConfigurationView, Configuration
     ConfigurationDeleteView
 from dashboard.views.dashboard_views import DashboardView
 from dashboard.views.model_views import ModelView, ModelEditView, ModelDeleteView
+from dashboard.views.profile_views import ProfileView
 from dashboard.views.statistic_views import StatisticView
 from dashboard.views.stream_views import StreamView
 from dashboard.views.violation_views import ViolationView, ViolationCreateView, ViolationEditView, ViolationDeleteView, \
@@ -40,4 +41,5 @@ urlpatterns = [
     path('video/', index),
     path('img/x/<int:id>', ImageView.as_view()),
     path('img/', Home.as_view()),
+    path('profile/', ProfileView.as_view()),
 ]
