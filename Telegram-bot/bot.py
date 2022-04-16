@@ -1,5 +1,10 @@
+import os
+
+import folium as folium
 import telegram.ext
 import sqlite3
+
+from PIL import Image
 
 TOKEN = "5201783249:AAGzZhrSXQQc3QlGBfrMQhWO9snyR37dWr8"
 
@@ -14,14 +19,7 @@ get_violations = "select v.id, w.name, m.name " \
                  "limit 3 "
 
 
-get_workers_violations = "select v.id, w.name, m.name " \
-                 "from backend_violation v " \
-                 "join backend_worker w on w.id = v.workerId_id " \
-                 "join backend_model m on m.id = v.modelId_id " \
-                 "limit 3 "
-
-
-get_specific_worker_vioaltions = "select v.id, w.name, m.name " \
+get_specific_worker_vioaltions = "select v.id, w.name, m.name, v.capture " \
                  "from backend_violation v " \
                  "join backend_worker w on w.id = v.workerId_id " \
                  "join backend_model m on m.id = v.modelId_id " \
@@ -40,13 +38,6 @@ def send_message_job(context):
         context.bot.send_message(chat_id='-757413211', text=f"{violation[1]} is violating the {violation[2]} rule.")
         cursor.execute(set_notified, (violation[0],))
 
-def get_workers_violations(update, context):
-    cursor.execute(get_workers_violations)
-    violations_result_set = cursor.fetchall()
-
-    for violation in violations_result_set:
-        update.message.reply_text(f"{violation[1]} violated the {violation[0]}.")
-
 
 def start(update, context):
     update.message.reply_text("""
@@ -59,9 +50,13 @@ def worker(update,context):
     cursor.execute(get_specific_worker_vioaltions, (workerid))
     violations_result_set = cursor.fetchall()
     if len(violations_result_set)>0:
-        update.message.reply_text(f" violation {len(violations_result_set)} violations are  occurred by {violations_result_set[0][1]}")
+        #update.message.reply_text(f" violation {len(violations_result_set)} violations are  occurred by {violations_result_set[0][1]}")
+        #context.bot.send_message(chat_id='-757413211', text=f"{len(violations_result_set)} is violating the {violations_result_set[0][1]} rule.")
         for violation in violations_result_set:
-            update.message.reply_text(f"{violation[1]}  violated the {violation[2]}")
+            context.bot.send_message(chat_id='-757413211', text=f"{violation[1]} is violating the {violation[2]} rule.",timeout=20) # timeout bir daha bakılabilir
+            if violation[3] is not None:
+                context.bot.send_photo(chat_id='-757413211', photo=open(violation[3], 'rb'))
+            #update.message.reply_text(f"{violation[1]}  violated the {violation[2]}")
 
 
 
@@ -71,7 +66,6 @@ def worker(update,context):
 updater = telegram.ext.Updater(TOKEN, use_context=True)
 disp = updater.dispatcher
 disp.add_handler(telegram.ext.CommandHandler("start", start))
-disp.add_handler(telegram.ext.CommandHandler("violations", get_workers_violations))
 disp.add_handler(telegram.ext.CommandHandler("worker", worker))
 #job_queue = updater.job_queue
 #job_queue.run_repeating(send_message_job, interval=10.0, first=0.0)
