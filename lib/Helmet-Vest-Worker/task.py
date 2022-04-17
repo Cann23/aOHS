@@ -21,7 +21,7 @@ sql_get_config = "select c.id, m.id, m.path " \
 #     print(output.decode("utf-8"))
 
 
-def TaskJob():
+def TaskJob(frame):
     while True:
         cur_cursor.execute(sql_get_config)
         result_set = cur_cursor.fetchall()
@@ -29,7 +29,7 @@ def TaskJob():
         thread_list = []
 
         for conf in result_set:
-            curr_thread = threading.Thread(target=model_caller.model_caller, args=(conf[0], conf[1], conf[2],))
+            curr_thread = threading.Thread(target=model_caller.model_caller, args=(conf[0], conf[1], conf[2], frame,))
             thread_list.append(curr_thread)
 
             curr_thread.start()
