@@ -2,6 +2,8 @@ import sqlite3
 import subprocess
 import threading
 from datetime import time
+from time import sleep
+
 import model_caller
 
 connection = sqlite3.connect('../../django-app/aOHS/db.sqlite3')
@@ -21,15 +23,16 @@ sql_get_config = "select c.id, m.id, m.path " \
 #     print(output.decode("utf-8"))
 
 
-def TaskJob(frame):
+def TaskJob():
     while True:
+
         cur_cursor.execute(sql_get_config)
         result_set = cur_cursor.fetchall()
 
         thread_list = []
 
         for conf in result_set:
-            curr_thread = threading.Thread(target=model_caller.model_caller, args=(conf[0], conf[1], conf[2], frame,))
+            curr_thread = threading.Thread(target=model_caller.model_caller, args=(conf[0], conf[1], conf[2],))
             thread_list.append(curr_thread)
 
             curr_thread.start()
