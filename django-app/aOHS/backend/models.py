@@ -4,7 +4,7 @@ from django.db import models
 
 from django.contrib.auth.models import User
 from django.dispatch import receiver
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save, post_delete, pre_delete
 
 
 class Camera(models.Model):
@@ -83,6 +83,7 @@ class Profile(models.Model):
         (ADMIN, 'Admin'),
         (SPECIALIST, 'Specialist'),
     ]
+    role = models.CharField(max_length=2, choices=ROLE, default=SPECIALIST)
 
     @receiver(post_save, sender=User)
     def create_user_profile(sender, instance, created, **kwargs):

@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 
 from django.views import View
 import os
-from backend.models import Camera
+from backend.models import Camera, Profile
 from dashboard.views.mixins import GetCountsMixin
 import cv2
 
@@ -15,10 +15,13 @@ class CameraCreateView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        return render(request, 'dashboard/camera-form.html',{'counts': super().get_counts()})
+        specialists = Profile.objects.filter(role='SP')
+        return render(request, 'dashboard/camera-form.html', {'specialists': specialists, 'counts': super().get_counts()})
 
     def post(self, request):
-        cameras = Camera(name=request.POST['camera_name'], url=request.POST['camera_url'])
+        print(request.POST['specialist'])
+        user = Profile.objects.filter(id=request.POST['specialist']).first().user
+        cameras = Camera(name=request.POST['camera_name'], url=request.POST['camera_url'], userId=user)
         cameras.save()
         return redirect('/dashboard/cameras/')
 
@@ -26,18 +29,22 @@ class CameraCreateView(LoginRequiredMixin, View, GetCountsMixin):
 class CameraView(LoginRequiredMixin, View, GetCountsMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
+
     def get(self, request):
         headers = ['name', 'url']
         cameras = Camera.objects.all()
-        return render(request, 'dashboard/listCamera.html', {'headers': headers, 'data': cameras, 'counts': super().get_counts()})
+        return render(request, 'dashboard/listCamera.html',
+                      {'headers': headers, 'data': cameras, 'counts': super().get_counts()})
 
 
 class CameraEditView(LoginRequiredMixin, View, GetCountsMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
+
     def get(self, request, camera_id):
         camera = Camera.objects.get(id=camera_id)
-        return render(request, 'dashboard/camera-edit.html', {"camera": camera, 'counts': super().get_counts()})
+        specialists = Profile.objects.filter(role='SP')
+        return render(request, 'dashboard/camera-edit.html', {'specialists': specialists, "camera": camera, 'counts': super().get_counts()})
 
     def post(self, request, camera_id):
         name = request.POST['name']
@@ -49,6 +56,7 @@ class CameraEditView(LoginRequiredMixin, View, GetCountsMixin):
 class CameraDeleteView(LoginRequiredMixin, View, GetCountsMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
+
     def get(self, request, camera_id):
         Camera.objects.get(id=camera_id).delete()
         return redirect('/dashboard/cameras/', {'counts': super().get_counts()})
