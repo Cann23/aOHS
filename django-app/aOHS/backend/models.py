@@ -67,6 +67,7 @@ class Configuration(models.Model):
     id = models.AutoField(primary_key=True)
     cameraId = models.ForeignKey(Camera, on_delete=models.CASCADE, null=False)
     modelId = models.ForeignKey(Model, on_delete=models.CASCADE, null=False)
+    violationCounter = models.IntegerField(default=0, null=False, blank=False)
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
 
