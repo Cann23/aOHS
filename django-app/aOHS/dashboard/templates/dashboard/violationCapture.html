@@ -30,6 +30,8 @@
         <td>{{ data.comment }}</td>
         <td>{{ data.created }}</td>
         <td>{{ data.modified }}</td>
+        <th><a class="btn" href="/dashboard/violations/edit/{{ data.id }}/"><i class="fa fa-edit"></i></a></th>
+        <th><a class="btn" href="/dashboard/violations/delete/{{ data.id }}/"><i class="fa fa-trash"></i></a></th>
         </tbody>
     </table>
             {% if data.capture != null %}
