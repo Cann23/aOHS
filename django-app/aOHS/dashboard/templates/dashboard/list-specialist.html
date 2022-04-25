@@ -1,0 +1,28 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <h3 class="fs-4 mb-3">Workers</h3>
+
+    <table class="table bg-white rounded shadow-sm  table-hover">
+        <thead>
+        <tr>
+            <th scope="col" width="50">#</th>
+            {% for header in headers %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+            <th><a class="btn" href="/dashboard/workers/add/"><i class="fa fa-plus"></i></a></th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for datum in data %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td><a class="btn" href="/dashboard/specialists/cameras/{{ datum.id }}">{{ datum.id }}</a></td>
+                <td>{{ datum.user.username }}</td>
+                <th><a class="btn" href="/dashboard/specialists/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
+                <th><a class="btn" href="/dashboard/specialists/delete/{{ datum.id }}/"><i class="fa fa-trash"></i></a></th>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

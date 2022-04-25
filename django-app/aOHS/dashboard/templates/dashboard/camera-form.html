@@ -3,14 +3,23 @@
 {% block table %}
     <form action="" method="post">
         {% csrf_token %}
-      <div class="mb-3">
-        <label for="camera_name" class="form-label">İsim</label>
-        <input type="text" class="form-control" id="camera_name" name="camera_name">
-      </div>
-      <div class="mb-3">
-        <label for="camera_url" class="form-label">Adres</label>
-        <input type="url" class="form-control" id="camera_url" name="camera_url">
-      </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+        <div class="mb-3">
+            <label for="camera_name" class="form-label">İsim</label>
+            <input type="text" class="form-control" id="camera_name" name="camera_name">
+        </div>
+        <div class="mb-3">
+            <label for="camera_url" class="form-label">Adres</label>
+            <input type="url" class="form-control" id="camera_url" name="camera_url">
+        </div>
+        <div class="mb-3">
+            <label for="specialist" class="form-label">Specialists</label>
+            <select name="specialist" id="specialist" class="form-select">
+                <option selected>Select a Specialist</option>
+                {% for specialist in specialists %}
+                    <option value="{{ specialist.id }}">{{ specialist.user.username }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}
