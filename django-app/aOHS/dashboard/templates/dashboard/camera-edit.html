@@ -11,7 +11,20 @@
             <label for="url" class="form-label">url</label>
             <input type="url" class="form-control" id="url" name="url" value="{{ camera.url}}">
         </div>
-
+        <div class="mb-3">
+            <label for="specialist" class="form-label">Specialists</label>
+            <select name="specialist" id="specialist" class="form-select">
+{#                <option selected>{{ camera.userId.username }}</option>#}
+                {% for specialist in specialists %}
+                    {% if camera.userId.username == specialist.user.username %}
+                        <option selected value="{{ specialist.id }}">{{ specialist.user.username }}</option>
+                    {% else %}
+{#                        <option>{{ specialist.username }}</option>#}
+                        <option value="{{ specialist.id }}">{{ specialist.user.username }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
         <button type=" submit" class="btn btn-primary">Submit</button>
     </form>
 {% endblock %}

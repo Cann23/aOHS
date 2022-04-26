@@ -13,7 +13,7 @@ class ViolationWorkerView(LoginRequiredMixin, View, GetCountsMixin):
     def get(self, request, worker_id):
         headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
         data = Violation.objects.filter(valid=True, workerId=worker_id)
-        worker = Worker.objects.get(id=1)
+        worker = Worker.objects.get(id=worker_id)
         worker_name = worker.name
         worker_title = worker.title
         return render(request, 'dashboard/listWorkerViolation.html',
@@ -26,7 +26,7 @@ class ViolationView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
+        headers = ['id', 'Camera Id - Name', 'Worker Id  - Name', 'Model Id  - Name', 'Comment', 'Created Date', 'Modified Date']
         data = Violation.objects.filter(valid=True)
         return render(request, 'dashboard/listViolation.html',
                       {'headers': headers, 'data': data, 'counts': super().get_counts()})
