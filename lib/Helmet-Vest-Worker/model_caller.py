@@ -24,14 +24,14 @@ def model_caller(camera_id, model_id, model_path):
         detection, is_violation_occurred = main.get_detection(letter_boxed_img, int(model_id))
 
         if is_violation_occurred:
-            date = datetime.datetime.now().strftime("%Y_%m_%d_%H_%M_%S")
+            date = datetime.datetime.now()
             print(date)
-            imgName ="violations/"+date+".jpg"
+            imgName ="violations/"+str(date)+".jpg"
             imgPath= "../../django-app/aOHS/static/images/"+imgName
             cv.imwrite(imgPath, detection)
             print(f"Model called for {camera_id} {model_id} {model_path} and violation: {is_violation_occurred}")
             insert_sql = f"insert into backend_violation  (cameraId_id ,modelId_id,valid,capture, created,modified,isNotified)" \
-                         f"values ( {camera_id}, {model_id}, true, '{imgName}',CURRENT_DATE ,CURRENT_DATE ,false) "
+                         f"values ( {camera_id}, {model_id}, true, '{imgName}','{date}' ,'{date}' ,false) "
 
             print(insert_sql)
             try:
