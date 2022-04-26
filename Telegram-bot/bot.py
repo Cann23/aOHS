@@ -9,7 +9,7 @@ TOKEN = "5201783249:AAGzZhrSXQQc3QlGBfrMQhWO9snyR37dWr8"
 connection = sqlite3.connect('../django-app/aOHS/db.sqlite3', check_same_thread=False)
 cursor = connection.cursor()
 
-get_violations = "select v.id, w.name, m.name " \
+get_violations = "select v.id, w.name, m.name, v.capture " \
                  "from backend_violation v " \
                  "join backend_worker w on w.id = v.workerId_id " \
                  "join backend_model m on m.id = v.modelId_id " \
@@ -36,6 +36,8 @@ def send_message_job(context):
         context.bot.send_message(chat_id='-757413211', text=f"{violation[1]} is violating the {violation[2]} rule.")
         cursor.execute(set_notified, (violation[0],))
         connection.commit()
+        if violation[3] is not None:
+            context.bot.send_photo(chat_id='-757413211',photo=open("../django-app/aOHS/static/images/" + violation[3], 'rb'))
 
 
 def start(update, context):
