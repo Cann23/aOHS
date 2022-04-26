@@ -24,4 +24,6 @@ urlpatterns = [
                   path('dashboard/', include('dashboard.urls')),
                   path('', include('django.contrib.auth.urls')),
                   # url(r'^.*$', RedirectView.as_view(url='dashboard/', permanent=False), name='dashboard')
+				  path('stream/', include('stream.urls')),
+
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
