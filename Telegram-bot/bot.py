@@ -62,7 +62,7 @@ def worker(update,context):
         for violation in violations_result_set:
             context.bot.send_message(chat_id='-757413211', text=f"{violation[1]} has violated {violation[2]} rule.",timeout=20) # timeout bir daha bakılabilir
             if violation[3] is not None:
-                context.bot.send_photo(chat_id='-757413211', photo=open(violation[3], 'rb'))
+                context.bot.send_photo(chat_id='-757413211', photo=open("../django-app/aOHS/static/images/" + violation[3], 'rb'))
             #update.message.reply_text(f"{violation[1]}  violated the {violation[2]}")
 
 
