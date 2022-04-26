@@ -35,6 +35,7 @@ def send_message_job(context):
     for violation in violations_result_set:
         context.bot.send_message(chat_id='-757413211', text=f"{violation[1]} is violating the {violation[2]} rule.")
         cursor.execute(set_notified, (violation[0],))
+        connection.commit()
 
 
 def start(update, context):
