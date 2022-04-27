@@ -1,4 +1,8 @@
 from django.http import HttpResponse
+from django.template import loader
 
 def index(request):
-	return HttpResponse("hey")
+	template = loader.get_template('stream/index.html')
+	context = {}
+	return HttpResponse(template.render(context, request))
+

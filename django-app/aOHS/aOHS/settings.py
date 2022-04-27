@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'channels',
     'dashboard',
     'bootstrap5',
+    'stream'
 ]
 
 MIDDLEWARE = [
