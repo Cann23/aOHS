@@ -8,7 +8,6 @@ django-app/venv
 django-app/aOHS/.idea/
 django-app/aOHS/aOHS/__pycache__/
 django-app/aOHS/backend/__pycache__/
-django-app/aOHS/backend/migrations/
 django-app/aOHS/dashboard/views/__pycache__/
 
 django-app/aOHS/dashboard/__pycache__/
