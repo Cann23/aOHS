@@ -36,7 +36,7 @@ def model_caller(conf):
                 violation_counter = 0
                 date = datetime.datetime.now()
                 print(date)
-                imgName = "violations/" + str(date) + ".jpg"
+                imgName = "violations/" + str(date).replace(":","_") + ".jpg"
                 imgPath = "../../django-app/aOHS/static/images/" + imgName
                 cv.imwrite(imgPath, detection)
                 print(f"Model called for {camera_id} {model_id} {model_path} and violation: {is_violation_occurred}")

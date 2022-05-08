@@ -1,0 +1,29 @@
+{% extends 'dashboard/dashboard.html' %}
+
+{% block table %}
+    <h3 class="fs-4 mb-3">Daily Violations</h3>
+
+    <table class="table bg-white rounded shadow-sm  table-hover">
+        <thead>
+        <tr>
+            <th scope="col" width="50">#</th>
+            {% for header in headers %}
+                <th scope="col">{{ header }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+        {% for datum in data %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ datum.cameraId }}</td>
+                <td>{{ datum.workerId }}</td>
+                <td>{{ datum.modelId }}</td>
+                <td>{{ datum.comment }}</td>
+                <td>{{ datum.created }}</td>
+                <td>{{ datum.modified }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
