@@ -1,14 +1,7 @@
-import argparse
-import asyncio
 import json
-import logging
-import os
-import platform
-import ssl
-import cv2
 import av
 
-from aiohttp import web
+from django.http import HttpResponse
 from aiortc import RTCPeerConnection, RTCSessionDescription, MediaStreamTrack
 
 class IPCameraTrack(MediaStreamTrack):
@@ -26,7 +19,7 @@ track = None
 pcs = set()
 
 async def offer(request):
-    params = await request.json()
+    params = json.loads(request.body)
     offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
     pc = RTCPeerConnection()
@@ -48,8 +41,8 @@ async def offer(request):
 
     answer = await pc.createAnswer()
     await pc.setLocalDescription(answer)
-
-    return web.Response(
+    
+    return HttpResponse(
         content_type="application/json",
         text=json.dumps(
             {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
