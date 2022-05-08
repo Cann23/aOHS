@@ -9,7 +9,7 @@ import model_caller
 connection = sqlite3.connect('../../django-app/aOHS/db.sqlite3')
 cur_cursor = connection.cursor()
 
-sql_get_config = "select c.id, m.id, m.path " \
+sql_get_config = "select c.id, m.id, m.path, co.id, co.violationCounter " \
                  "from backend_camera c " \
                  "join backend_configuration co on co.cameraId_id = c.id " \
                  "join backend_model m on m.id = co.modelId_id " \
@@ -32,7 +32,7 @@ def TaskJob():
         thread_list = []
 
         for conf in result_set:
-            curr_thread = threading.Thread(target=model_caller.model_caller, args=(conf[0], conf[1], conf[2],))
+            curr_thread = threading.Thread(target=model_caller.model_caller, args=(conf,))
             thread_list.append(curr_thread)
 
             curr_thread.start()
