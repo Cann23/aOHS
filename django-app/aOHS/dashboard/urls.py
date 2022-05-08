@@ -16,7 +16,7 @@ from dashboard.views.specialist_views import SpecialistView, SpecialistCreateVie
     SpecialistDeleteView, SpecialistCameraView
 
 urlpatterns = [
-    path('', DashboardView.as_view()),
+    path('', ViolationDailyView.as_view()),
     path('workers/', WorkerView.as_view()),
     path('workers/add/', WorkerCreateView.as_view()),
     path('workers/edit/<int:worker_id>/', WorkerEditView.as_view()),
