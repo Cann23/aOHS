@@ -28,9 +28,8 @@ class ViolationDailyView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
-        date = datetime.now - timedelta(days=1)
-        data = Violation.objects.filter(valid=True, created = date)
+        headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created']
+        data = Violation.objects.filter(valid=True, created__gte=datetime.now() - timedelta(days=1))
         return render(request, 'dashboard/listDailyViolations.html',
                       {'headers': headers, 'data': data, 'counts': super().get_counts()})
 
