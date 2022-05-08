@@ -7,9 +7,9 @@ import cv2 as cv
 
 import main
 
-set_violation_counter = "update backend_configuration" \
-                        "set violationCounter = %s " \
-                        "where id = %s "
+set_violation_counter = "update backend_configuration " \
+                        "set violationCounter = ? " \
+                        "where id = ? "
 
 
 def model_caller(conf):
@@ -29,7 +29,7 @@ def model_caller(conf):
             print("Can't receive frame (stream end?). Exiting ...")
             break
         letter_boxed_img = main.letterbox_image(frame, main.input_shape)
-        detection, is_violation_occurred = main.get_detection(letter_boxed_img, int(model_id))
+        detection, is_violation_occurred = main.get_detection(letter_boxed_img, int(model_id)-1)
 
         if is_violation_occurred:
             if violation_counter >= 5:
