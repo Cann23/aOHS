@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
 from django.views import View
@@ -20,6 +22,16 @@ class ViolationWorkerView(LoginRequiredMixin, View, GetCountsMixin):
                       {'headers': headers, 'data': data, 'name': worker_name, 'title': worker_title,
                        'counts': super().get_counts()})
 
+
+class ViolationDailyView(LoginRequiredMixin, View, GetCountsMixin):
+    login_url = '/login/'
+    redirect_field_name = 'redirect_to'
+
+    def get(self, request):
+        headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created', 'modified']
+        data = Violation.objects.filter(valid=True, created__date=datetime.today().date())
+        return render(request, 'dashboard/listDailyViolation.html',
+                      {'headers': headers, 'data': data, 'counts': super().get_counts()})
 
 class ViolationView(LoginRequiredMixin, View, GetCountsMixin):
     login_url = '/login/'
