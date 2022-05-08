@@ -39,8 +39,8 @@ class ViolationDailySelectView(LoginRequiredMixin, View, GetCountsMixin):
 
     def get(self, request, date):
         headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created']
-        data = Violation.objects.filter(valid=True, created__gte=datetime.now() - timedelta(days=date))
-        return render(request, 'dashboard/listDailyViolations.html',
+        data = Violation.objects.filter(valid=True, created__gte = datetime.now() - timedelta(days=date) )
+        return render(request, 'dashboard/listDailySelectViolation.html',
                       {'headers': headers, 'data': data, 'counts': super().get_counts()})
 
 class ViolationView(LoginRequiredMixin, View, GetCountsMixin):
