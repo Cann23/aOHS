@@ -1,21 +1,30 @@
 var pc = null;
 
-function createPeerConnection() {
-    pc = new RTCPeerConnection();
-    pc.addEventListener('track', function(evt) {
-        document.getElementById('video').srcObject = evt.streams[0];
-    });
-    return pc;
-}
-
 function negotiate() {
+    pc.addTransceiver('video', {direction: 'recvonly'});
     return pc.createOffer().then(function(offer) {
         return pc.setLocalDescription(offer);
-	}).then(function()){
-        var offer = ip;
+    }).then(function() {
+        // wait for ICE gathering to complete
+        return new Promise(function(resolve) {
+            if (pc.iceGatheringState === 'complete') {
+                resolve();
+            } else {
+                function checkState() {
+                    if (pc.iceGatheringState === 'complete') {
+                        pc.removeEventListener('icegatheringstatechange', checkState);
+                        resolve();
+                    }
+                }
+                pc.addEventListener('icegatheringstatechange', checkState);
+            }
+        });
+    }).then(function() {
+        var offer = pc.localDescription;
         return fetch('/offer', {
             body: JSON.stringify({
-                ip: offer,
+                sdp: offer.sdp,
+                type: offer.type,
             }),
             headers: {
                 'Content-Type': 'application/json'
@@ -32,11 +41,23 @@ function negotiate() {
 }
 
 function start() {
-    pc = createPeerConnection();
+    var config = {
+        sdpSemantics: 'unified-plan'
+    };
+    pc = new RTCPeerConnection(config);
+    pc.addEventListener('track', function(evt) {
+        if (evt.track.kind == 'video') {
+            document.getElementById('video').srcObject = evt.streams[0];
+        }
+    });    
     negotiate();
 }
 
 function stop() {
-    pc.close();
+    setTimeout(function() {
+        pc.close();
+    }, 500);
 }
+
+start();
 
