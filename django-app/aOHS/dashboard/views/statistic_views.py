@@ -19,6 +19,7 @@ class StatisticView(LoginRequiredMixin, View, GetCountsMixin):
         from_date_monthly = datetime.now() - timedelta(days=30)
 
         violations_last_week = Violation.objects.filter(created__range=[from_date_weekly, datetime.now()]) \
+            .exclude(workerId__isnull=True) \
             .annotate(day=TruncDay('created')) \
             .values('day') \
             .annotate(c=Count('id')) \
@@ -28,6 +29,7 @@ class StatisticView(LoginRequiredMixin, View, GetCountsMixin):
             v['day'] = v['day'].date()
 
         violations_last_month = Violation.objects.filter(created__range=[from_date_monthly, datetime.now()]) \
+            .exclude(workerId__isnull=True) \
             .annotate(day=TruncDay('created')) \
             .values('day') \
             .annotate(c=Count('id')) \
