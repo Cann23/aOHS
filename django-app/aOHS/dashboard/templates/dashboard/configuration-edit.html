@@ -1,16 +1,49 @@
 {% extends 'dashboard/dashboard.html' %}
 
 {% block table %}
-    <form action="" method="post">
+{#    <form action="" method="post">#}
+{#        {% csrf_token %}#}
+{#        <div class="mb-3">#}
+{#            <label for="cameraId" class="form-label">Camera ID</label>#}
+{#            <input type="number" class="form-control" id="cameraId" name="cameraId" value="{{ configuration.cameraId}}">#}
+{#        </div>#}
+{#        <div class="mb-3">#}
+{#            <label for="modelId" class="form-label">Model ID</label>#}
+{#            <input type="number" class="form-control" id="modelId" name="modelId" value="{{ configuration.modelId }}">#}
+{#        </div>#}
+{#        <button type=" submit" class="btn btn-primary">Submit</button>#}
+{#    </form>#}
+
+        <form action="" method="post">
         {% csrf_token %}
-        <div class="mb-3">
-            <label for="cameraId" class="form-label">Camera ID</label>
-            <input type="number" class="form-control" id="cameraId" name="cameraId" value="{{ configuration.cameraId}}">
-        </div>
-        <div class="mb-3">
-            <label for="modelId" class="form-label">Model ID</label>
-            <input type="number" class="form-control" id="modelId" name="modelId" value="{{ configuration.modelId }}">
-        </div>
-        <button type=" submit" class="btn btn-primary">Submit</button>
+      <div class="mb-3">
+        <label for="camera" class="form-label">Camera</label>
+          <select name="camera" id="camera" class="form-select">
+              <option selected>Select a camera</option>
+              {% for camera in cameras %}
+                  {% if configuration.cameraId_id == camera.id %}
+                      <option selected value="{{ camera.id }}">{{ camera.name }}</option>
+                  {% else %}
+                      <option value="{{ camera.id }}">{{ camera.name }}</option>
+                  {% endif %}
+              {% endfor %}
+          </select>
+      </div>
+      <div class="mb-3">
+        <label for="model" class="form-label">Model</label>
+          <select name="model" id="model" class="form-select">
+              <option selected>Select a model</option>
+              {% for model in models %}
+{#                  <option value="{{ model.id }}">{{ model.name }}</option>#}
+                  {% if configuration.modelId_id == model.id %}
+                      <option selected value="{{ model.id }}">{{ model.name }}</option>
+                  {% else %}
+                      <option value="{{ model.id }}">{{ model.name }}</option>
+                  {% endif %}
+              {% endfor %}
+          </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
 {% endblock %}

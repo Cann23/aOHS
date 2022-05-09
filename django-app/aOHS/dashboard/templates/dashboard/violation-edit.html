@@ -1,24 +1,75 @@
 {% extends 'dashboard/dashboard.html' %}
 
 {% block table %}
+    {#    <form action="" method="post">#}
+    {#        {% csrf_token %}#}
+    {#        <div class="mb-3">#}
+    {#            <label for="cameraId" class="form-label">Camera ID</label>#}
+    {#            <input type="number" class="form-control" id="cameraId" name="cameraId" value="{{ violation.cameraId}}">#}
+    {#        </div>#}
+    {#        <div class="mb-3">#}
+    {#            <label for="workerId" class="form-label">Worker ID</label>#}
+    {#            <input type="number" class="form-control" id="workerId" name="workerId" value="{{ violation.workerId}}">#}
+    {#        </div>#}
+    {#        <div class="mb-3">#}
+    {#            <label for="modelId" class="form-label">Model ID</label>#}
+    {#            <input type="number" class="form-control" id="modelId" name="modelId" value="{{ violation.modelId }}">#}
+    {#        </div>#}
+    {#        <div class="mb-3">#}
+    {#            <label for="comment" class="form-label">comment</label>#}
+    {#            <input type="text" class="form-control" id="comment" name="comment" value="{{ violation.comment }}">#}
+    {#        </div>#}
+    {#        <button type=" submit" class="btn btn-primary">Submit</button>#}
+    {#    </form>#}
+
     <form action="" method="post">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="cameraId" class="form-label">Camera ID</label>
-            <input type="number" class="form-control" id="cameraId" name="cameraId" value="{{ violation.cameraId}}">
+            <label for="camera" class="form-label">Camera</label>
+            <select name="camera" id="camera" class="form-select">
+                <option selected>Select a camera</option>
+                {% for camera in cameras %}
+                    {% if violation.cameraId_id == camera.id %}
+                        <option selected value="{{ camera.id }}">{{ camera.name }}</option>
+                    {% else %}
+                        <option value="{{ camera.id }}">{{ camera.name }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
         </div>
         <div class="mb-3">
-            <label for="workerId" class="form-label">Worker ID</label>
-            <input type="number" class="form-control" id="workerId" name="workerId" value="{{ violation.workerId}}">
+            <label for="worker" class="form-label">Worker</label>
+            <select name="worker" id="worker" class="form-select">
+                <option selected>Select a worker</option>
+                {% for worker in workers %}
+                    {% if violation.workerId_id == worker.id %}
+                        <option selected value="{{ worker.id }}">{{ worker.name }}</option>
+                    {% else %}
+                        <option value="{{ worker.id }}">{{ worker.name }}</option>
+                    {% endif %}
+
+                {% endfor %}
+            </select>
         </div>
         <div class="mb-3">
-            <label for="modelId" class="form-label">Model ID</label>
-            <input type="number" class="form-control" id="modelId" name="modelId" value="{{ violation.modelId }}">
+            <label for="model" class="form-label">Model</label>
+            <select name="model" id="model" class="form-select">
+                <option selected>Select a model</option>
+                {% for model in models %}
+                    {% if violation.modelId_id == model.id %}
+                        <option selected value="{{ model.id }}">{{ model.name }}</option>
+                    {% else %}
+                        <option value="{{ model.id }}">{{ model.name }}</option>
+                    {% endif %}
+
+                {% endfor %}
+            </select>
         </div>
         <div class="mb-3">
-            <label for="comment" class="form-label">comment</label>
+            <label for="comment" class="form-label">Comment</label>
             <input type="text" class="form-control" id="comment" name="comment" value="{{ violation.comment }}">
         </div>
-        <button type=" submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+
 {% endblock %}

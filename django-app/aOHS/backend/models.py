@@ -17,7 +17,7 @@ class Camera(models.Model):
     active = models.BooleanField(default=False)
 
     def __str__(self):
-        return str(self.id) + " " + str(self.name)
+        return str(self.name)
 
 
 class Worker(models.Model):
@@ -33,7 +33,7 @@ class Worker(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.id) + " " + str(self.name)
+        return str(self.name)
 
 
 class Model(models.Model):
@@ -44,7 +44,7 @@ class Model(models.Model):
     modified = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return str(self.id) + " " + str(self.name)
+        return str(self.name)
 
 
 class Violation(models.Model):

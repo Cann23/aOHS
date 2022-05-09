@@ -17,11 +17,10 @@
         {% for datum in data %}
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
-                <td>{{ datum.id }}</td>
                 <td>{{ datum.cameraId }}</td>
                 <td>{{ datum.modelId }}</td>
-                <td>{{ datum.created }}</td>
-                <td>{{ datum.modified }}</td>
+                <td>{{ datum.created | date:'Y-m-d H:i' }}</td>
+                <td>{{ datum.modified | date:'Y-m-d H:i' }}</td>
                 <th><a class="btn" href="/dashboard/configurations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a>
                 </th>
                 <th><a class="btn" href="/dashboard/configurations/delete/{{ datum.id }}/"><i

@@ -16,14 +16,13 @@
         <tbody>
         {% for datum in data %}
             <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td><a class="btn" href="/dashboard/violations/{{ datum.id }}">{{ datum.id }}</a></td>
+                <th scope="row"><a class="btn" href="/dashboard/violations/{{ datum.id }}">{{ forloop.counter }}</a></th>
                 <td>{{ datum.cameraId }}</td>
                 <td>{{ datum.workerId }}</td>
                 <td>{{ datum.modelId }}</td>
                 <td>{{ datum.comment }}</td>
-                <td>{{ datum.created }}</td>
-                <td>{{ datum.modified }}</td>
+                <td>{{ datum.created | date:'Y-m-d H:i' }}</td>
+                <td>{{ datum.modified | date:'Y-m-d H:i' }}</td>
                 <th><a class="btn" href="/dashboard/violations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
                 <th><a class="btn" href="/dashboard/violations/delete/{{ datum.id }}/"><i class="fa fa-trash"></i></a>
                 </th>

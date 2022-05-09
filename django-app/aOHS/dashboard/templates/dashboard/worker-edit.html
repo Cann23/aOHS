@@ -4,15 +4,15 @@
     <form action="" method="post">
         {% csrf_token %}
         <div class="mb-3">
-            <label for="name" class="form-label">İsim</label>
+            <label for="name" class="form-label">Name</label>
             <input type="text" class="form-control" id="name" name="name" value="{{ worker.name }}">
         </div>
         <div class="mb-3">
-            <label for="title" class="form-label">Ünvan</label>
+            <label for="title" class="form-label">Title</label>
             <input type="text" class="form-control" id="title" name="title" value="{{ worker.title }}">
         </div>
         <div class=" mb-3">
-            <label for="phone" class="form-label">Telefon Numarası</label>
+            <label for="phone" class="form-label">Phone</label>
             <input type="text" class="form-control" id="phone" name="phone" value="{{ worker.phone }}">
         </div>
         <button type=" submit" class="btn btn-primary">Submit</button>

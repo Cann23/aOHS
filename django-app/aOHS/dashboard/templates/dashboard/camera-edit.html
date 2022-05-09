@@ -14,12 +14,10 @@
         <div class="mb-3">
             <label for="specialist" class="form-label">Specialists</label>
             <select name="specialist" id="specialist" class="form-select">
-{#                <option selected>{{ camera.userId.username }}</option>#}
                 {% for specialist in specialists %}
                     {% if camera.userId.username == specialist.user.username %}
                         <option selected value="{{ specialist.id }}">{{ specialist.user.username }}</option>
                     {% else %}
-{#                        <option>{{ specialist.username }}</option>#}
                         <option value="{{ specialist.id }}">{{ specialist.user.username }}</option>
                     {% endif %}
                 {% endfor %}

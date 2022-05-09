@@ -13,7 +13,6 @@ class SpecialistView(LoginRequiredMixin, View, GetCountsMixin):
 
     def get(self, request):
         headers = ['id', 'specialist_name']
-        workers = Worker.objects.filter(active=True)
 
         specialists = Profile.objects.filter(role='SP')
         return render(request, 'dashboard/list-specialist.html',
@@ -31,22 +30,22 @@ class SpecialistCreateView(LoginRequiredMixin, View, GetCountsMixin):
         worker = Worker(name=request.POST['worker_name'], title=request.POST['worker_title'],
                         phone=request.POST['worker_tel'])
         worker.save()
-        return redirect('/dashboard/Specialists/')
+        return redirect('/dashboard/specialists/')
 
 
 class SpecialistEditView(LoginRequiredMixin, View, GetCountsMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
 
-    def get(self, request, worker_id):
-        worker = Worker.objects.get(id=worker_id)
-        return render(request, 'dashboard/worker-edit.html', {"worker": worker, 'counts': super().get_counts()})
+    def get(self, request, specialist_id):
+        specialist = Profile.objects.get(id=specialist_id)
+        return render(request, 'dashboard/specialist-edit.html', {"specialist": specialist, 'counts': super().get_counts()})
 
-    def post(self, request, worker_id):
-        name = request.POST['name']
-        title = request.POST['title']
-        phone = request.POST['phone']
-        Worker.objects.filter(id=worker_id).update(name=name, title=title, phone=phone)
+    def post(self, request, specialist_id):
+        # name = request.POST['name']
+        # title = request.POST['title']
+        # phone = request.POST['phone']
+        # Worker.objects.filter(id=worker_id).update(name=name, title=title, phone=phone)
         return redirect('/dashboard/workers')
 
 

@@ -16,8 +16,7 @@
         <tbody>
         {% for datum in data %}
             <tr>
-                <th scope="row">{{ forloop.counter }}</th>
-                <td><a class="btn" href="/dashboard/violations/worker/{{ datum.id }}">{{ datum.id }}</a></td>
+                <th scope="row"><a class="btn" href="/dashboard/violations/worker/{{ datum.id }}">{{ forloop.counter }}</a></th>
                 <td>{{ datum.name }}</td>
                 <td>{{ datum.title }}</td>
                 <td>{{ datum.phone }} </td>

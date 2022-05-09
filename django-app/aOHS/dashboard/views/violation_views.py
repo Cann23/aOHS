@@ -28,10 +28,11 @@ class ViolationDailyView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created']
+        headers = ['Camera Name', 'Worker Name', 'Model Name', 'Comment', 'Created', 'Modified']
         data = Violation.objects.filter(valid=True, created__gte=datetime.now() - timedelta(days=1))
         return render(request, 'dashboard/listDailyViolations.html',
                       {'headers': headers, 'data': data, 'counts': super().get_counts()})
+
 
 class ViolationDailySelectView(LoginRequiredMixin, View, GetCountsMixin):
     login_url = '/login/'
@@ -39,17 +40,20 @@ class ViolationDailySelectView(LoginRequiredMixin, View, GetCountsMixin):
 
     def get(self, request, date):
         headers = ['id', 'cameraId', 'workerId', 'modelId', 'comment', 'created']
-        data = Violation.objects.filter(valid=True, created__gte = datetime.now() - timedelta(days=date) )
+        data = Violation.objects.filter(valid=True, created__gte=datetime.now() - timedelta(days=date))
         return render(request, 'dashboard/listDailySelectViolation.html',
                       {'headers': headers, 'data': data, 'counts': super().get_counts()})
+
 
 class ViolationView(LoginRequiredMixin, View, GetCountsMixin):
     login_url = '/login/'
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        headers = ['id', 'Camera Id - Name', 'Worker Id  - Name', 'Model Id  - Name', 'Comment', 'Created Date', 'Modified Date']
+        headers = ['Camera Name', 'Worker Name', 'Model Name', 'Comment', 'Created Date',
+                   'Modified Date']
         data = Violation.objects.filter(valid=True)
+        print(data[0].cameraId)
         return render(request, 'dashboard/listViolation.html',
                       {'headers': headers, 'data': data, 'counts': super().get_counts()})
 
@@ -105,17 +109,24 @@ class ViolationEditView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request, violation_id):
+        cameras = Camera.objects.all()
+        workers = Worker.objects.all()
+        models = Model.objects.all()
         violation = Violation.objects.get(id=violation_id)
         return render(request, 'dashboard/violation-edit.html',
-                      {'violation': violation, 'counts': super().get_counts()})
+                      {'violation': violation, 'cameras': cameras, 'workers': workers, 'models': models, 'counts': super().get_counts()})
+
 
     def post(self, request, violation_id):
-        cameraId = request.POST['cameraId']
-        workerId = request.POST['workerId']
-        modelId = request.POST['modelId']
+        cameras = Camera.objects.all()
+        workers = Worker.objects.all()
+        models = Model.objects.all()
         comment = request.POST['comment']
-        Violation.objects.filter(id=violation_id).update(cameraId=cameraId, workerId=workerId, modelId=modelId,
-                                                         comment=comment)
+        camera = cameras.get(id=request.POST['camera'])
+        worker = workers.get(id=request.POST['worker'])
+        model = models.get(id=request.POST['model'])
+        print()
+        Violation.objects.filter(id=violation_id).update(cameraId=camera, workerId=worker, modelId=model, comment=comment)
         return redirect('/dashboard/violations/')
 
 

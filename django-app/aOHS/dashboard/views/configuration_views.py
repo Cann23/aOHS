@@ -14,7 +14,7 @@ class ConfigurationView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        headers = ["id", "cameraId", "modelId", "created", "modified"]
+        headers = ["Camera Name", "Model Name", "Created", "Modified"]
         configuration = Configuration.objects.all()
         return render(request, 'dashboard/listConfiguration.html', {'headers': headers, 'data': configuration, 'counts': super().get_counts()})
 
@@ -42,8 +42,9 @@ class ConfigurationCreateView(LoginRequiredMixin, View, GetCountsMixin):
         models = Model.objects.all()
         camera = cameras.get(id=request.POST['camera'])
         model = models.get(id=request.POST['model'])
-        configuration = Configuration(cameraId=camera, modelId=model)
-        configuration.save()
+        if not Configuration.objects.filter(cameraId=camera, modelId=model).exists():
+            configuration = Configuration(cameraId=camera, modelId=model)
+            configuration.save()
         return redirect('/dashboard/configurations/')
 
 
@@ -52,13 +53,16 @@ class ConfigurationEditView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request, configuration_id):
+        cameras = Camera.objects.all()
+        models = Model.objects.all()
         configuration = Configuration.objects.get(id=configuration_id)
-        return render(request, 'dashboard/configuration-edit.html', {'configuration': configuration, 'counts': super().get_counts()})
+        return render(request, 'dashboard/configuration-edit.html', {'configuration': configuration, 'cameras': cameras, 'models': models, 'counts': super().get_counts()})
 
     def post(self, request, configuration_id):
-        cameraId = request.POST['cameraId']
-        modelId = request.POST['modelId']
-        Configuration.objects.filter(id=configuration_id).update(cameraId=cameraId, modelId=modelId)
+        camera = request.POST['camera']
+        model = request.POST['model']
+        if not Configuration.objects.filter(cameraId=camera, modelId=model).exists():
+            Configuration.objects.filter(id=configuration_id).update(cameraId=camera, modelId=model)
         return redirect('/dashboard/configurations/')
 
 
