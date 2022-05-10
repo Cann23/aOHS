@@ -1,7 +1,7 @@
 import json
 import av
 
-from django.http import HttpResponse
+from django.http import JsonResponse
 from aiortc import RTCPeerConnection, RTCSessionDescription, MediaStreamTrack
 
 class IPCameraTrack(MediaStreamTrack):
@@ -42,10 +42,9 @@ async def offer(request):
     answer = await pc.createAnswer()
     await pc.setLocalDescription(answer)
     
-    return HttpResponse(
-        content_type="application/json",
-        text=json.dumps(
-            {"sdp": pc.localDescription.sdp, "type": pc.localDescription.type}
-        ),
+    return JsonResponse(
+        data={
+        "sdp": pc.localDescription.sdp,"type": pc.localDescription.type
+        }
     )
 
