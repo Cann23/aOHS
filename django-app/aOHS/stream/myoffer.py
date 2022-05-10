@@ -1,5 +1,6 @@
 import json
 import av
+import urllib
 
 from django.http import JsonResponse
 from aiortc import RTCPeerConnection, RTCSessionDescription, MediaStreamTrack
@@ -19,32 +20,33 @@ track = None
 pcs = set()
 
 async def offer(request):
-    params = json.loads(request.body)
-    offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
+	params = json.loads(request.body)
+	offer = RTCSessionDescription(sdp=params["sdp"], type=params["type"])
 
-    pc = RTCPeerConnection()
-    pcs.add(pc)
+	pc = RTCPeerConnection()
+	pcs.add(pc)
 
-    @pc.on("connectionstatechange")
-    async def on_connectionstatechange():
-        print("Connection state is %s" % pc.connectionState)
-        if pc.connectionState == "failed":
-            await pc.close()
-            pcs.discard(pc)
+	@pc.on("connectionstatechange")
+	async def on_connectionstatechange():
+		print("Connection state is %s" % pc.connectionState)
+		if pc.connectionState == "failed":
+			await pc.close()
+			pcs.discard(pc)
 
-    track = IPCameraTrack(params["url"])
+	url = urllib.parse.unquote(params["url"])
+	track = IPCameraTrack(url)
 
-    await pc.setRemoteDescription(offer)
-    for t in pc.getTransceivers():
-        if t.kind == "video" and track:
-            pc.addTrack(track)
+	await pc.setRemoteDescription(offer)
+	for t in pc.getTransceivers():
+		if t.kind == "video" and track:
+			pc.addTrack(track)
 
-    answer = await pc.createAnswer()
-    await pc.setLocalDescription(answer)
-    
-    return JsonResponse(
-        data={
-        "sdp": pc.localDescription.sdp,"type": pc.localDescription.type
-        }
-    )
+	answer = await pc.createAnswer()
+	await pc.setLocalDescription(answer)
+
+	return JsonResponse(
+		data={
+		"sdp": pc.localDescription.sdp,"type": pc.localDescription.type
+		}
+	)
 
