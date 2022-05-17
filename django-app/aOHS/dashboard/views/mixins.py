@@ -12,7 +12,7 @@ class GetCountsMixin(object):
         if len(violations_in_last_week) == 0:
             increase = 0
         else:
-            increase = len(violations_in_this_week) / len(violations_in_last_week)
+            increase = len(violations_in_this_week) - len(violations_in_last_week) / len(violations_in_last_week)
 
         counts = {
             'workers': Worker.objects.filter(active=True).count(),
