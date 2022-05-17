@@ -53,7 +53,6 @@ class ViolationView(LoginRequiredMixin, View, GetCountsMixin):
         headers = ['Camera Name', 'Worker Name', 'Model Name', 'Comment', 'Created Date',
                    'Modified Date']
         data = Violation.objects.filter(valid=True)
-        print(data[0].cameraId)
         return render(request, 'dashboard/listViolation.html',
                       {'headers': headers, 'data': data, 'counts': super().get_counts()})
 
@@ -114,8 +113,8 @@ class ViolationEditView(LoginRequiredMixin, View, GetCountsMixin):
         models = Model.objects.all()
         violation = Violation.objects.get(id=violation_id)
         return render(request, 'dashboard/violation-edit.html',
-                      {'violation': violation, 'cameras': cameras, 'workers': workers, 'models': models, 'counts': super().get_counts()})
-
+                      {'violation': violation, 'cameras': cameras, 'workers': workers, 'models': models,
+                       'counts': super().get_counts()})
 
     def post(self, request, violation_id):
         cameras = Camera.objects.all()
@@ -126,7 +125,8 @@ class ViolationEditView(LoginRequiredMixin, View, GetCountsMixin):
         worker = workers.get(id=request.POST['worker'])
         model = models.get(id=request.POST['model'])
         print()
-        Violation.objects.filter(id=violation_id).update(cameraId=camera, workerId=worker, modelId=model, comment=comment)
+        Violation.objects.filter(id=violation_id).update(cameraId=camera, workerId=worker, modelId=model,
+                                                         comment=comment)
         return redirect('/dashboard/violations/')
 
 
