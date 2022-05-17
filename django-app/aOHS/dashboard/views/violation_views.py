@@ -53,7 +53,19 @@ class ViolationView(LoginRequiredMixin, View, GetCountsMixin):
         headers = ['Camera Name', 'Worker Name', 'Model Name', 'Comment', 'Created Date',
                    'Modified Date']
         data = Violation.objects.filter(valid=True)
-        print(data[0].cameraId)
+
+        if 'Camera Name' in request.GET:
+            data = Violation.objects.all().order_by('cameraId__name')
+        elif 'Worker Name' in request.GET:
+            data = Violation.objects.all().order_by('workerId__name')
+        elif 'Model Name' in request.GET:
+            data = Violation.objects.all().order_by('modelId__name')
+        elif 'Comment' in request.GET:
+            data = Violation.objects.all().order_by('comment')
+        elif 'Created Date' in request.GET:
+            data = Violation.objects.all().order_by('created')
+        elif 'Modified Date' in request.GET:
+            data = Violation.objects.all().order_by('modified')
         return render(request, 'dashboard/listViolation.html',
                       {'headers': headers, 'data': data, 'counts': super().get_counts()})
 

@@ -41,7 +41,7 @@ urlpatterns = [
     path('models/edit/<int:model_id>/', ModelEditView.as_view()),
     path('models/delete/<int:model_id>/', ModelDeleteView.as_view()),
 
-    path('configurations/', ConfigurationView.as_view()),
+    path('configurations/', ConfigurationView.as_view(), name='configurationsList'),
     path('configurations/add/', ConfigurationCreateView.as_view()),
     path('configurations/edit/<int:configuration_id>/', ConfigurationEditView.as_view()),
     path('configurations/delete/<int:configuration_id>/', ConfigurationDeleteView.as_view()),

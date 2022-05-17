@@ -11,8 +11,16 @@ class WorkerView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        headers = ['id', 'name', 'title', 'phone']
+        headers = ['name', 'title', 'phone']
         workers = Worker.objects.filter(active=True)
+        if 'id' in request.GET:
+            workers = Worker.objects.all().order_by('id')
+        elif 'name' in request.GET:
+            workers = Worker.objects.all().order_by('name')
+        elif 'title' in request.GET:
+            workers = Worker.objects.all().order_by('title')
+        elif 'phone' in request.GET:
+            workers = Worker.objects.all().order_by('phone')
         return render(request, 'dashboard/listWorker.html',
                       {'headers': headers, 'data': workers, 'counts': super().get_counts()})
 

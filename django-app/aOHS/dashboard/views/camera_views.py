@@ -33,6 +33,10 @@ class CameraView(LoginRequiredMixin, View, GetCountsMixin):
     def get(self, request):
         headers = ['name', 'url']
         cameras = Camera.objects.all()
+        if 'name' in request.GET:
+            cameras = Camera.objects.all().order_by('name')
+        elif 'url' in request.GET:
+            cameras = Camera.objects.all().order_by('url')
         return render(request, 'dashboard/listCamera.html',
                       {'headers': headers, 'data': cameras, 'counts': super().get_counts()})
 

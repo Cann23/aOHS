@@ -15,7 +15,17 @@ class ConfigurationView(LoginRequiredMixin, View, GetCountsMixin):
 
     def get(self, request):
         headers = ["Camera Name", "Model Name", "Created", "Modified"]
+        # if request.GET["Camera Name"] !=
         configuration = Configuration.objects.all()
+        if "Camera Name" in request.GET:
+            configuration = Configuration.objects.all().order_by('cameraId__name')
+        elif "Model Name" in request.GET:
+            configuration = Configuration.objects.all().order_by('modelId__name')
+        elif "Created" in request.GET:
+            configuration = Configuration.objects.all().order_by('created')
+        elif "Modified" in request.GET:
+            configuration = Configuration.objects.all().order_by('modified')
+
         return render(request, 'dashboard/listConfiguration.html', {'headers': headers, 'data': configuration, 'counts': super().get_counts()})
 
     def put(self, request):
