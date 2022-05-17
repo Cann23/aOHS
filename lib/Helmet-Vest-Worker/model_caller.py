@@ -19,9 +19,10 @@ def model_caller(conf):
     configuration_id = conf[3]
     violation_counter = conf[4]
     main.prepare_model(approach=1)
-    cap = cv.VideoCapture(0)
+    cap = cv.VideoCapture(conf[5])
     if not cap.isOpened():
-        print("Cannot open camera")
+
+        print("Cannot open camera with id: " + str(camera_id))
         sys.exit()
     while True:
         ret, frame = cap.read()
@@ -32,6 +33,7 @@ def model_caller(conf):
         detection, is_violation_occurred = main.get_detection(letter_boxed_img, int(model_id)-1)
 
         if is_violation_occurred:
+            print("camera id: " + str(camera_id) + " detected violation")
             if violation_counter >= 5:
                 violation_counter = 0
                 date = datetime.datetime.now()
