@@ -40,7 +40,7 @@
         <div class="mb-3">
             <label for="worker" class="form-label">Worker</label>
             <select name="worker" id="worker" class="form-select">
-                <option selected>Select a worker</option>
+                <option selected value="0">Select a worker</option>
                 {% for worker in workers %}
                     {% if violation.workerId_id == worker.id %}
                         <option selected value="{{ worker.id }}">{{ worker.name }}</option>

@@ -130,12 +130,19 @@ class ViolationEditView(LoginRequiredMixin, View, GetCountsMixin):
 
 
     def post(self, request, violation_id):
+        print("basla")
         cameras = Camera.objects.all()
         workers = Worker.objects.all()
         models = Model.objects.all()
         comment = request.POST['comment']
         camera = cameras.get(id=request.POST['camera'])
-        worker = workers.get(id=request.POST['worker'])
+        print(request.POST['worker'])
+        if request.POST['worker'] == "0":
+            print("selam")
+            worker = None
+        else:
+            worker = workers.get(id=request.POST['worker'])
+            print("selam")
         model = models.get(id=request.POST['model'])
         print()
         Violation.objects.filter(id=violation_id).update(cameraId=camera, workerId=worker, modelId=model, comment=comment)
