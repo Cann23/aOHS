@@ -11,12 +11,15 @@
                 <th scope="col"><a href="?{{ header }}">{{ header }}</a></th>
             {% endfor %}
             <th><a class="btn" href="/dashboard/violations/add/"><i class="fa fa-plus"></i></a></th>
+            <th>Remove</th>
+            <th>Warning</th>
         </tr>
         </thead>
         <tbody>
         {% for datum in data %}
             <tr>
-                <th scope="row"><a class="btn" href="/dashboard/violations/{{ datum.id }}">{{ forloop.counter }}</a></th>
+                <th scope="row"><a class="btn" href="/dashboard/violations/{{ datum.id }}">{{ forloop.counter }}</a>
+                </th>
                 <td>{{ datum.cameraId }}</td>
                 <td>{{ datum.workerId }}</td>
                 <td>{{ datum.modelId }}</td>
@@ -26,6 +29,11 @@
                 <th><a class="btn" href="/dashboard/violations/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
                 <th><a class="btn" href="/dashboard/violations/delete/{{ datum.id }}/"><i class="fa fa-trash"></i></a>
                 </th>
+                <th>{% if datum.workerId == null %}
+                    <i class="fa fa-warning" style="font-size:30px;color:red"></i>
+                {% else %}
+
+                {% endif %}   </th>
             </tr>
         {% endfor %}
         </tbody>

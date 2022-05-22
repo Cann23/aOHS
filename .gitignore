@@ -9,6 +9,11 @@ django-app/aOHS/.idea/
 django-app/aOHS/aOHS/__pycache__/
 django-app/aOHS/backend/__pycache__/
 django-app/aOHS/dashboard/views/__pycache__/
+backend/migrations/__pycache__/
+dashboard/migrations/__pycache__/
+../../lib/Helmet-Vest-Worker/.idea/
+backend/migrations/__pycache__/
+
 
 django-app/aOHS/dashboard/__pycache__/
 lib/.idea/
