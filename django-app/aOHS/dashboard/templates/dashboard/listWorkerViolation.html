@@ -18,7 +18,12 @@
             <tr>
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ datum.cameraId }}</td>
-                <td>{{ datum.workerId }}</td>
+                <td>
+                    {% if datum.workerId == None %}
+                    {% else %}
+                        {{ datum.workerId }}
+                    {% endif %}
+                </td>
                 <td>{{ datum.modelId }}</td>
                 <td>{{ datum.comment }}</td>
                 <td>{{ datum.created }}</td>
