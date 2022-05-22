@@ -2,6 +2,14 @@
 
 {% block table %}
     <h3 class="fs-4 mb-3">Violations</h3>
+    <select id="marked">
+        <option value="false">Unmarked</option>
+        <option value="true">Marked</option>
+    </select>
+    <a onclick=" marked = document.getElementById('marked').value; window.location.href = '?marked=' + marked;"><i
+            class="fa fa-check" aria-hidden="true"></i></a>
+    <br>
+    <br>
 
     <table class="table bg-white rounded shadow-sm  table-hover">
         <thead>
