@@ -10,6 +10,7 @@
             {% for header in headers %}
                 <th scope="col">{{ header }}</th>
             {% endfor %}
+            <th>Warning</th>
         </tr>
         </thead>
         <tbody>
@@ -22,6 +23,11 @@
                 <td>{{ datum.comment }}</td>
                 <td>{{ datum.created }}</td>
                 <td>{{ datum.modified }}</td>
+                <th>{% if datum.workerId == null %}
+                    <i class="fa fa-warning" style="font-size:30px;color:red"></i>
+                {% else %}
+
+                {% endif %}   </th>
             </tr>
         {% endfor %}
         </tbody>
