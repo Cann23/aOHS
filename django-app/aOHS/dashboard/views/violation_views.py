@@ -1,4 +1,4 @@
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, date, time
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
@@ -60,6 +60,17 @@ class ViolationView(LoginRequiredMixin, View, GetCountsMixin):
                 data = data.filter(workerId__isnull=False)
             else:
                 data = data.filter(workerId__isnull=True)
+
+        if 'day-filter' in request.GET:
+            marked = request.GET['day-filter']
+            if marked == '0':
+                today_min = datetime.combine(date.today(), time.min)
+                today_max = datetime.combine(date.today(), time.max)
+                data = data.filter(created__range=(today_min, today_max))
+            elif marked == '1':
+                data = data.filter(created__gte=datetime.now() - timedelta(days=3))
+            else:
+                data = data.filter(created__gte=datetime.now() - timedelta(days=7))
 
         if 'Camera Name' in request.GET:
             data = Violation.objects.all().order_by('cameraId__name')
