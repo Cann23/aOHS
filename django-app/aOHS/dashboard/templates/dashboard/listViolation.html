@@ -18,7 +18,12 @@
             <tr>
                 <th scope="row"><a class="btn" href="/dashboard/violations/{{ datum.id }}">{{ forloop.counter }}</a></th>
                 <td>{{ datum.cameraId }}</td>
-                <td>{{ datum.workerId }}</td>
+                <td>
+                    {% if datum.workerId == None %}
+                    {% else %}
+                        {{ datum.workerId }}
+                    {% endif %}
+                </td>
                 <td>{{ datum.modelId }}</td>
                 <td>{{ datum.comment }}</td>
                 <td>{{ datum.created | date:'Y-m-d H:i' }}</td>
