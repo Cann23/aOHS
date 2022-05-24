@@ -47,8 +47,11 @@ def start(update, context):
 def help(update, context):
     update.message.reply_text("""
         The following commands are avaible:
-                /start
-                /worker {id}
+                /start : starts the bot
+                /worker {id} : shows the violations of the worker with the id
+                /cameras : shows the cameras
+                /workers : shows the workers
+                /models : shows the models
     """)
 
 
@@ -82,6 +85,14 @@ def workers(update, context):
     for worker in workers_result_set:
         context.bot.send_message(chat_id='-757413211', text=f" {worker[0]} ")
 
+def models(update, context):
+    cursor.execute("select name from backend_model")
+    models_result_set = cursor.fetchall()
+    context.bot.send_message(chat_id='-757413211', text=f"There are {len(models_result_set)} models.")
+    for model in models_result_set:
+        context.bot.send_message(chat_id='-757413211', text=f" {model[0]} ")
+
+
 
 
 updater = telegram.ext.Updater(TOKEN, use_context=True)
@@ -91,6 +102,7 @@ disp.add_handler(telegram.ext.CommandHandler("help", help))
 disp.add_handler(telegram.ext.CommandHandler("worker", worker))
 disp.add_handler(telegram.ext.CommandHandler("cameras", cameras))
 disp.add_handler(telegram.ext.CommandHandler("workers", workers))
+disp.add_handler(telegram.ext.CommandHandler("models", models))
 job_queue = updater.job_queue
 job_queue.run_repeating(send_message_job, interval=10.0, first=0.0)
 
