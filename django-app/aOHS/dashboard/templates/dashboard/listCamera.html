@@ -19,6 +19,7 @@
                 <th scope="row">{{ forloop.counter }}</th>
                 <td>{{ datum.name }}</td>
                 <td><a href="/img">{{ datum.url }}</a></td>
+                <td>{{ datum.active}}</td>
                 <th><a class="btn" href="/dashboard/cameras/edit/{{ datum.id }}/"><i class="fa fa-edit"></i></a></th>
                 <th><a class="btn" href="/dashboard/cameras/delete/{{ datum.id }}/"><i class="fa fa-trash"></i></a></th>
             </tr>

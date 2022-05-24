@@ -31,7 +31,7 @@ class CameraView(LoginRequiredMixin, View, GetCountsMixin):
     redirect_field_name = 'redirect_to'
 
     def get(self, request):
-        headers = ['name', 'url']
+        headers = ['name', 'url', 'active']
         cameras = Camera.objects.all()
         if 'name' in request.GET:
             cameras = Camera.objects.all().order_by('name')
@@ -53,7 +53,8 @@ class CameraEditView(LoginRequiredMixin, View, GetCountsMixin):
     def post(self, request, camera_id):
         name = request.POST['name']
         url = request.POST['url']
-        Camera.objects.filter(id=camera_id).update(name=name, url=url)
+        active = request.POST['active']
+        Camera.objects.filter(id=camera_id).update(name=name, url=url, active=active)
         return redirect('/dashboard/cameras')
 
 
