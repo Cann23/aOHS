@@ -69,8 +69,12 @@ class ViolationView(LoginRequiredMixin, View, GetCountsMixin):
                 data = data.filter(created__range=(today_min, today_max))
             elif marked == '1':
                 data = data.filter(created__gte=datetime.now() - timedelta(days=3))
-            else:
+            elif marked == '2':
                 data = data.filter(created__gte=datetime.now() - timedelta(days=7))
+            elif marked == '3':
+                data = data.filter(created__gte=datetime.now() - timedelta(days=30))
+            else:
+                data = data.filter(created__gte=datetime.now() - timedelta(days=365))
 
         if 'Camera Name' in request.GET:
             data = Violation.objects.all().order_by('cameraId__name')
