@@ -32,6 +32,10 @@ set_notified = "update backend_violation " \
                "set isNotified = 1 " \
                "where id = ? "
 
+get_configurations = "select c1.name, m.name " \
+                     "from backend_configuration c  " \
+                     "join backend_model m on c.modelId_id = m.id " \
+                     "join backend_camera c1 on c.cameraId_id = c1.id "
 
 def send_message_job(context):
     cursor.execute(get_violations)
@@ -58,7 +62,8 @@ def help(update, context):
                 /cameras : shows the cameras
                 /workers : shows the workers
                 /models : shows the models
-                /violations {date} : only shows the marked violations of the period of time date is the today or lastweek o
+                /violations {date} : shows the violations on the given date with the parameter. Parameters can be today, lastweek, lastmonth, lastyear
+                /configurations : shows the configurations
     """)
 
 
@@ -85,6 +90,7 @@ def cameras(update, context):
             context.bot.send_message(chat_id='-757413211', text=f"{camera[0]} is active.")
         else:
             context.bot.send_message(chat_id='-757413211', text=f"{camera[0]} is not active.")
+
 def workers(update, context):
     cursor.execute("select name from backend_worker")
     workers_result_set = cursor.fetchall()
@@ -99,12 +105,24 @@ def models(update, context):
     for model in models_result_set:
         context.bot.send_message(chat_id='-757413211', text=f" {model[0]} ")
 
+def configurations(update, context):
+    cursor.execute(get_configurations)
+    configurations_result_set = cursor.fetchall()
+    context.bot.send_message(chat_id='-757413211', text=f"There are {len(configurations_result_set)} configurations.")
+    for configuration in configurations_result_set:
+        context.bot.send_message(chat_id='-757413211', text=f" camera: {configuration[0]}, model: {configuration[1]} ")
+
+
 def violations(update, context):
     param = (" ".join(context.args))
     if param == "today":
         cursor.execute(get_violations_by_date, (datetime.now(), datetime.now() -timedelta(days=1)))
     elif param == "lastweek":
         cursor.execute(get_violations_by_date, (datetime.now()-timedelta(days=7), datetime.now()))
+    elif param == "lastmonth":
+        cursor.execute(get_violations_by_date, (datetime.now()-timedelta(days=30), datetime.now()))
+    elif param == "lastyear":
+        cursor.execute(get_violations_by_date, (datetime.now()-timedelta(days=365), datetime.now()))
 
     violations_result_set = cursor.fetchall()
     context.bot.send_message(chat_id='-757413211', text=f"{param},There are {len(violations_result_set)} violations.")
@@ -122,6 +140,7 @@ disp.add_handler(telegram.ext.CommandHandler("cameras", cameras))
 disp.add_handler(telegram.ext.CommandHandler("workers", workers))
 disp.add_handler(telegram.ext.CommandHandler("models", models))
 disp.add_handler(telegram.ext.CommandHandler("violations", violations))
+disp.add_handler(telegram.ext.CommandHandler("configurations", configurations))
 job_queue = updater.job_queue
 job_queue.run_repeating(send_message_job, interval=10.0, first=0.0)
 
