@@ -66,8 +66,21 @@ def worker(update,context):
                 context.bot.send_photo(chat_id='-757413211', photo=open("../django-app/aOHS/static/images/" + violation[3], 'rb'))
             #update.message.reply_text(f"{violation[1]}  violated the {violation[2]}")
 
-
-
+def cameras(update, context):
+    cursor.execute("select name,active from backend_camera")
+    cameras_result_set = cursor.fetchall()
+    context.bot.send_message(chat_id='-757413211', text=f"There are {len(cameras_result_set)} cameras.")
+    for camera in cameras_result_set:
+        if camera[1] == True:
+            context.bot.send_message(chat_id='-757413211', text=f"{camera[0]} is active.")
+        else:
+            context.bot.send_message(chat_id='-757413211', text=f"{camera[0]} is not active.")
+def workers(update, context):
+    cursor.execute("select name from backend_worker")
+    workers_result_set = cursor.fetchall()
+    context.bot.send_message(chat_id='-757413211', text=f"There are {len(workers_result_set)} workers.")
+    for worker in workers_result_set:
+        context.bot.send_message(chat_id='-757413211', text=f" {worker[0]} ")
 
 
 
@@ -76,6 +89,8 @@ disp = updater.dispatcher
 disp.add_handler(telegram.ext.CommandHandler("start", start))
 disp.add_handler(telegram.ext.CommandHandler("help", help))
 disp.add_handler(telegram.ext.CommandHandler("worker", worker))
+disp.add_handler(telegram.ext.CommandHandler("cameras", cameras))
+disp.add_handler(telegram.ext.CommandHandler("workers", workers))
 job_queue = updater.job_queue
 job_queue.run_repeating(send_message_job, interval=10.0, first=0.0)
 
