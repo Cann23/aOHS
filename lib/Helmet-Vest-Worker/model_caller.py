@@ -19,7 +19,10 @@ def model_caller(conf):
     configuration_id = conf[3]
     violation_counter = conf[4]
     main.prepare_model(approach=1)
-    cap = cv.VideoCapture(conf[5])
+    camera_url = conf[5]
+    if "test" in conf[5]:
+        camera_url = 0
+    cap = cv.VideoCapture(camera_url)
     if not cap.isOpened():
 
         print("Cannot open camera with id: " + str(camera_id))
