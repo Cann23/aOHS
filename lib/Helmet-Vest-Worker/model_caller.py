@@ -21,9 +21,9 @@ def model_caller(conf):
     main.prepare_model(approach=1)
     camera_url = conf[5]
     if "test1" in conf[5]: #pc kamerası
-        camera_url = 0
-    if "test2" in conf[5]:  #harici
         camera_url = 2
+    if "test2" in conf[5]:  #harici
+        camera_url = 0
     cap = cv.VideoCapture(camera_url)
     if not cap.isOpened():
 
